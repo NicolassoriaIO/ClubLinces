@@ -8,7 +8,8 @@ import {
     View,
     Text,
     Button,
-    FlatList
+    FlatList,
+    Alert
 } from 'react-native';
 
 
@@ -20,7 +21,8 @@ import {
 
 import {
     registrarAsistencia,
-    existeAsistenciaSesion
+    existeAsistenciaSesion,
+    estaBloqueadaPorTiempo
 } from '../services/asistenciaService';
 
 
@@ -41,6 +43,8 @@ export default function AsistenciaScreen({ route }) {
     const [asistencias,setAsistencias] = useState({});
 
     const [soloLectura, setSoloLectura] = useState(false);
+
+    const [bloqueadoPorTiempo, setBloqueadoPorTiempo] = useState(false);
 
 
 
@@ -69,16 +73,28 @@ export default function AsistenciaScreen({ route }) {
 
 
 
-        setSoloLectura(
-
-            existeAsistenciaSesion(
-                sesion.id
-            )
-
+        const yaGuardada = existeAsistenciaSesion(
+            sesion.id
         );
 
-    }
+        const vencida = estaBloqueadaPorTiempo(sesion);
 
+        setBloqueadoPorTiempo(vencida);
+
+        setSoloLectura(
+            yaGuardada || vencida
+        );
+
+        if(vencida && !yaGuardada){
+
+            Alert.alert(
+                "Tiempo vencido",
+                "El tiempo para registrar asistencia de esta sesión ha vencido."
+            );
+
+        }
+
+    }
 
 
 
@@ -92,7 +108,6 @@ export default function AsistenciaScreen({ route }) {
             return;
 
         }
-
         setAsistencias({
 
             ...asistencias,
@@ -102,9 +117,6 @@ export default function AsistenciaScreen({ route }) {
         });
 
     }
-
-
-
 
 
 
@@ -280,10 +292,11 @@ export default function AsistenciaScreen({ route }) {
 
 
 
-
                         <Button
 
                             title="P"
+
+                            disabled={soloLectura}
 
                             onPress={()=>
 
@@ -299,10 +312,11 @@ export default function AsistenciaScreen({ route }) {
 
 
 
-
                         <Button
 
                             title="F"
+
+                            disabled={soloLectura}
 
                             onPress={()=>
 
@@ -318,10 +332,11 @@ export default function AsistenciaScreen({ route }) {
 
 
 
-
                         <Button
 
                             title="L"
+
+                            disabled={soloLectura}
 
                             onPress={()=>
 
@@ -340,9 +355,7 @@ export default function AsistenciaScreen({ route }) {
                     </View>
 
 
-
                 )}
-
 
 
             />
@@ -353,6 +366,16 @@ export default function AsistenciaScreen({ route }) {
                     {calcularPorcentaje()}%
 
                 </Text>
+
+                {
+                    bloqueadoPorTiempo &&
+
+                    <Text style={{ color: "red", marginTop: 10 }}>
+
+                        El tiempo para registrar asistencia de esta sesión ha vencido.
+
+                    </Text>
+                }
 
                 {
                     !soloLectura &&
@@ -368,12 +391,9 @@ export default function AsistenciaScreen({ route }) {
 
 
 
-
         </View>
 
 
-
     );
-
 
 }

@@ -82,3 +82,20 @@ export function existeAsistenciaSesion(sesionId){
     return resultado !== null;
 
 }
+
+
+
+export function estaBloqueadaPorTiempo(sesion){
+
+    const finSesion = new Date(`${sesion.fecha}T${sesion.horaFin}`);
+
+    if(isNaN(finSesion.getTime())){
+        return false;
+    }
+
+    const horasTranscurridas =
+        (new Date() - finSesion) / (1000 * 60 * 60);
+
+    return horasTranscurridas > 2;
+
+}

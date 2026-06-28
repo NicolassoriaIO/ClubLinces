@@ -2,7 +2,7 @@ import { db } from '../database/database';
 
 
 
-function esMarcaPersonal(
+export function esMarcaPersonal(
 
     atletaId,
 

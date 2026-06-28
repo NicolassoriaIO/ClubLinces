@@ -1,9 +1,17 @@
-import { useEffect } from 'react';
+import {
+    useEffect,
+    useState
+} from 'react';
 
 
-import { NavigationContainer } from '@react-navigation/native';
+import { 
+    NavigationContainer 
+} from '@react-navigation/native';
 
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+import { 
+    createNativeStackNavigator 
+} from '@react-navigation/native-stack';
 
 
 
@@ -33,11 +41,36 @@ import RegistrarRendimientoScreen from './src/screens/RegistrarRendimientoScreen
 
 import SeleccionarAtletaScreen from './src/screens/SeleccionarAtletaScreen';
 
-import { crearTablas } from './src/database/database';
+import DetalleRendimientoScreen from './src/screens/DetalleRendimientoScreen';
+
+import CompetenciasScreen from './src/screens/CompetenciasScreen';
+
+import DetalleCompetenciaScreen from './src/screens/DetalleCompetenciaScreen';
+
+import CrearCompetenciaScreen from './src/screens/CrearCompetenciaScreen';
+
+import ResultadosCompetenciaScreen from './src/screens/ResultadosCompetenciaScreen';
+
+import RegistroScreen from './src/screens/RegistroScreen';
+
+
+
+import { 
+    crearTablas 
+} from './src/database/database';
+
+
+
+import {
+    obtenerSesion,
+    cerrarSesion
+} from './src/services/sesionService';
 
 
 
 
+
+import { SessionContext } from './src/context/SessionContext';
 
 const Stack = createNativeStackNavigator();
 
@@ -49,11 +82,21 @@ const Stack = createNativeStackNavigator();
 export default function App(){
 
 
+    const [cargando,setCargando] = useState(true);
+
+
+    const [sesion,setSesion] = useState(null);
+
+
+
 
     useEffect(()=>{
 
 
         crearTablas();
+
+
+        revisarSesion();
 
 
     },[]);
@@ -62,9 +105,55 @@ export default function App(){
 
 
 
+    async function revisarSesion(){
+
+
+        const usuario = await obtenerSesion();
+
+
+        setSesion(usuario);
+
+
+        setCargando(false);
+
+    }
+
+
+    async function cerrarSesionApp(){
+
+        await cerrarSesion();
+
+        setSesion(null);
+
+    }
+
+    function iniciarSesionApp(usuario){
+
+        setSesion(usuario);
+
+    }
+
+
+
+
+
+
+    if(cargando){
+
+
+        return null;
+
+
+    }
+
+
+
+
 
     return(
 
+
+        <SessionContext.Provider value={{ cerrarSesionApp, iniciarSesionApp }}>
 
         <NavigationContainer>
 
@@ -73,25 +162,38 @@ export default function App(){
 
 
 
-                <Stack.Screen
+                {
+                    sesion
 
-                    name="Login"
+                    ?
 
-                    component={Login}
+                    (
 
-                />
+                        <Stack.Screen
 
+                            name="Home"
 
+                            component={Home}
 
+                        />
 
+                    )
 
-                <Stack.Screen
+                    :
 
-                    name="Home"
+                    (
 
-                    component={Home}
+                        <Stack.Screen
 
-                />
+                            name="Login"
+
+                            component={Login}
+
+                        />
+
+                    )
+
+                }
 
 
 
@@ -108,7 +210,6 @@ export default function App(){
 
 
 
-
                 <Stack.Screen
 
                     name="CrearAtleta"
@@ -118,30 +219,62 @@ export default function App(){
                 />
 
 
+
+
                 <Stack.Screen
+
                     name="EditarAtleta"
+
                     component={EditarAtletasScreen}
+
                 />
 
+
+
+
                 <Stack.Screen
+
                     name="DetalleAtleta"
+
                     component={DetalleAtletaScreen}
+
                 />
 
+
+
+
                 <Stack.Screen
+
                     name="Agenda"
+
                     component={AgendaScreen}
+
                 />
 
+
+
+
                 <Stack.Screen
+
                     name="CrearSesion"
+
                     component={CrearSesionScreen}
+
                 />
 
+
+
+
                 <Stack.Screen
+
                     name="EditarSesion"
+
                     component={EditarSesionScreen}
+
                 />
+
+
+
 
                 <Stack.Screen
 
@@ -151,25 +284,111 @@ export default function App(){
 
                 />
 
-                <Stack.Screen
-                    name="Asistencia"
-                    component={AsistenciaScreen}
-                />
+
+
 
                 <Stack.Screen
-                    name="RegistrarRendimiento"
-                    component={RegistrarRendimientoScreen}
+
+                    name="Asistencia"
+
+                    component={AsistenciaScreen}
+
                 />
+
+
+
+
                 <Stack.Screen
-                    name="SeleccionarAtleta"
-                    component={SeleccionarAtletaScreen}
+
+                    name="RegistrarRendimiento"
+
+                    component={RegistrarRendimientoScreen}
+
                 />
+
+
+
+
+                <Stack.Screen
+
+                    name="SeleccionarAtleta"
+
+                    component={SeleccionarAtletaScreen}
+
+                />
+
+
+
+
+                <Stack.Screen
+
+                    name="DetalleRendimiento"
+
+                    component={DetalleRendimientoScreen}
+
+                />
+
+
+
+
+                <Stack.Screen
+
+                    name="Competencias"
+
+                    component={CompetenciasScreen}
+
+                />
+
+
+
+
+                <Stack.Screen
+
+                    name="DetalleCompetencia"
+
+                    component={DetalleCompetenciaScreen}
+
+                />
+
+
+
+
+                <Stack.Screen
+
+                    name="CrearCompetencia"
+
+                    component={CrearCompetenciaScreen}
+
+                />
+
+
+
+
+                <Stack.Screen
+
+                    name="ResultadosCompetencia"
+
+                    component={ResultadosCompetenciaScreen}
+
+                />
+
+
+
+
+                <Stack.Screen
+
+                    name="Registro"
+
+                    component={RegistroScreen}
+
+                />
+
 
             </Stack.Navigator>
 
 
-
         </NavigationContainer>
+        </SessionContext.Provider>
 
 
     );

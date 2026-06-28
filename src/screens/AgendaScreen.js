@@ -10,8 +10,7 @@ import {
 } from 'react-native';
 
 import {
-    obtenerSesiones,
-    cancelarSesion
+    obtenerSesiones
 } from '../services/agendaService';
 
 import {
@@ -78,14 +77,6 @@ export default function AgendaScreen({ navigation }) {
         setFechaActual(nueva);
 
     }
-
-    function cancelar(id)  {
-
-        cancelarSesion(id);
-
-        cargarSesiones();
-
-    }   
 
 
 

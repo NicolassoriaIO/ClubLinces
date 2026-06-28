@@ -57,6 +57,12 @@ export default function AtletasScreen({ navigation }) {
             .toLowerCase()
             .includes(busqueda.toLowerCase())
 
+        ||
+
+        a.apellido
+            .toLowerCase()
+            .includes(busqueda.toLowerCase())
+
     );
 
 

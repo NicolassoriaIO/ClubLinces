@@ -1,7 +1,8 @@
 import {
     View,
     Text,
-    Button
+    Button,
+    Alert
 } from 'react-native';
 
 import { desactivarAtleta } from '../services/atletaService';
@@ -15,8 +16,30 @@ export default function DetalleAtletaScreen({
     const { atleta } = route.params;
 
     function desactivar(){
-        desactivarAtleta(atleta.id);
-        navigation.goBack();
+
+        Alert.alert(
+
+            "Desactivar atleta",
+
+            "¿Seguro que querés desactivar a este atleta?",
+
+            [
+                {
+                    text: "Cancelar",
+                    style: "cancel"
+                },
+                {
+                    text: "Desactivar",
+                    style: "destructive",
+                    onPress: () => {
+                        desactivarAtleta(atleta.id);
+                        navigation.goBack();
+                    }
+                }
+            ]
+
+        );
+
     }
 
 
@@ -76,6 +99,28 @@ export default function DetalleAtletaScreen({
                             atleta: atleta
                         }
                     )
+                }
+
+            />
+
+            <Button
+
+                title="Ver rendimiento"
+
+                onPress={() =>
+
+                    navigation.navigate(
+
+                        "DetalleRendimiento",
+
+                        {
+
+                            atleta
+
+                        }
+
+                    )
+
                 }
 
             />

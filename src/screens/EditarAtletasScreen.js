@@ -78,6 +78,11 @@ export default function EditarAtletaScreen({ route, navigation }) {
 
         );
 
+        Alert.alert(
+            "Éxito",
+            "Perfil actualizado correctamente"
+        );
+
 
 
         navigation.goBack();

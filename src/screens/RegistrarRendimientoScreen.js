@@ -41,6 +41,22 @@ export default function RegistrarRendimientoScreen({ route, navigation }) {
 
         }
 
+        const valorNumerico = parseFloat(resultado);
+
+        if (
+            isNaN(valorNumerico) ||
+            valorNumerico < 0
+        ) {
+
+            Alert.alert(
+                "Valor inválido",
+                "Ingrese un resultado numérico válido."
+            );
+
+            return;
+
+        }
+
 
 
         registrarRendimiento({
@@ -51,7 +67,7 @@ export default function RegistrarRendimientoScreen({ route, navigation }) {
 
             disciplina,
 
-            resultado: parseFloat(resultado),
+            resultado: valorNumerico,
 
             fecha: new Date().toISOString()
 
