@@ -31,6 +31,18 @@ export function crearTablas() {
             bloqueoHasta TEXT,
 
 
+            pregunta1 TEXT,
+
+
+            respuesta1 TEXT,
+
+
+            pregunta2 TEXT,
+
+
+            respuesta2 TEXT,
+
+
             activo INTEGER DEFAULT 1,
 
 
@@ -220,5 +232,22 @@ export function crearTablas() {
 
     `);
 
+    // Migración defensiva: si la app ya existía con una versión anterior
+    // de la tabla `usuarios` (sin las columnas de preguntas de seguridad),
+    // las agregamos aquí. Si ya existen, el error se ignora.
+    const columnasNuevas = [
+        'pregunta1 TEXT',
+        'respuesta1 TEXT',
+        'pregunta2 TEXT',
+        'respuesta2 TEXT',
+    ];
+
+    columnasNuevas.forEach((columna) => {
+        try {
+            db.execSync(`ALTER TABLE usuarios ADD COLUMN ${columna};`);
+        } catch (error) {
+            // La columna ya existe, no hacer nada.
+        }
+    });
 
 }

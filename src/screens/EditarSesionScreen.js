@@ -5,12 +5,26 @@ import {
     Text,
     TextInput,
     Button,
-    Alert
+    Alert,
+    Platform
 } from 'react-native';
+
+import { Picker } from '@react-native-picker/picker';
+
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 import {
     actualizarSesion
 } from '../services/agendaService';
+
+import {
+    GRUPOS
+} from '../constants/opciones';
+
+import {
+    formatearFecha,
+    parsearFecha
+} from '../utils/fechas';
 
 
 
@@ -23,6 +37,8 @@ export default function EditarSesionScreen({
 
     const [fecha, setFecha] = useState(sesion.fecha);
 
+    const [mostrarCalendario, setMostrarCalendario] = useState(false);
+
     const [horaInicio, setHoraInicio] = useState(sesion.horaInicio);
 
     const [horaFin, setHoraFin] = useState(sesion.horaFin);
@@ -32,6 +48,21 @@ export default function EditarSesionScreen({
     const [grupo, setGrupo] = useState(sesion.grupo);
 
     const [descripcion, setDescripcion] = useState(sesion.descripcion);
+
+
+    function onCambiarFecha(event, fechaSeleccionada) {
+
+        setMostrarCalendario(Platform.OS === "ios");
+
+        if (fechaSeleccionada) {
+
+            setFecha(
+                formatearFecha(fechaSeleccionada)
+            );
+
+        }
+
+    }
 
 
 
@@ -70,10 +101,10 @@ export default function EditarSesionScreen({
             }
 
         );
-        
+
         Alert.alert(
-            "Exito",
-            "Sesion actualizada correctamente"
+            "Éxito",
+            "Sesión actualizada correctamente"
         )
 
         navigation.goBack();
@@ -96,17 +127,48 @@ export default function EditarSesionScreen({
             </Text>
 
 
-            <TextInput
-                placeholder="Fecha"
-                value={fecha}
-                onChangeText={setFecha}
+            <Text style={{ marginTop: 10 }}>
+                Fecha
+            </Text>
+
+            <Button
+
+                title={fecha === "" ? "Seleccionar fecha" : fecha}
+
+                onPress={() => setMostrarCalendario(true)}
+
             />
+
+            {
+                mostrarCalendario &&
+
+                <DateTimePicker
+
+                    value={
+
+                        fecha === ""
+
+                            ? new Date()
+
+                            : parsearFecha(fecha)
+
+                    }
+
+                    mode="date"
+
+                    display="default"
+
+                    onChange={onCambiarFecha}
+
+                />
+            }
 
 
             <TextInput
                 placeholder="Hora inicio"
                 value={horaInicio}
                 onChangeText={setHoraInicio}
+                style={{ marginTop: 10 }}
             />
 
 
@@ -124,11 +186,29 @@ export default function EditarSesionScreen({
             />
 
 
-            <TextInput
-                placeholder="Grupo"
-                value={grupo}
-                onChangeText={setGrupo}
-            />
+            <Text style={{ marginTop: 10 }}>
+                Grupo
+            </Text>
+
+            <Picker
+
+                selectedValue={grupo}
+
+                onValueChange={setGrupo}
+
+            >
+
+                <Picker.Item label="Seleccione un grupo" value="" />
+
+                {
+                    GRUPOS.map((g) => (
+
+                        <Picker.Item key={g} label={g} value={g} />
+
+                    ))
+                }
+
+            </Picker>
 
 
             <TextInput

@@ -5,192 +5,167 @@ import {
     Text,
     TextInput,
     Button,
-    Alert
+    Alert,
+    Platform
 } from 'react-native';
 
+import { Picker } from '@react-native-picker/picker';
+
+import DateTimePicker from '@react-native-community/datetimepicker';
+
 import {
-    actualizarAtleta
+    actualizarAtleta,
+    verificarCompatibilidadGrupo
 } from '../services/atletaService';
+
+import { GRUPOS, DISCIPLINAS } from '../constants/opciones';
+
+import { formatearFecha, parsearFecha } from '../utils/fechas';
 
 
 
 export default function EditarAtletaScreen({ route, navigation }) {
 
-
     const { atleta } = route.params;
 
-
-
     const [nombre, setNombre] = useState(atleta.nombre);
-
     const [apellido, setApellido] = useState(atleta.apellido);
-
     const [fechaNacimiento, setFechaNacimiento] = useState(atleta.fechaNacimiento);
-
+    const [mostrarCalendario, setMostrarCalendario] = useState(false);
     const [disciplina, setDisciplina] = useState(atleta.disciplina);
-
     const [grupo, setGrupo] = useState(atleta.grupo);
 
+
+
+    function onCambiarFecha(event, fechaSeleccionada) {
+
+        setMostrarCalendario(Platform.OS === "ios");
+
+        if (fechaSeleccionada) {
+            setFechaNacimiento(formatearFecha(fechaSeleccionada));
+        }
+    }
 
 
 
     function actualizar() {
 
-
         if (
-
             nombre === "" ||
-
             apellido === "" ||
-
             fechaNacimiento === "" ||
-
             disciplina === "" ||
-
             grupo === ""
-
         ) {
-
             Alert.alert(
                 "Campos incompletos",
                 "Debe completar todos los campos."
             );
-
             return;
-
         }
 
+        const advertencia = verificarCompatibilidadGrupo(fechaNacimiento, grupo);
 
+        if (advertencia) {
 
-        actualizarAtleta(
+            Alert.alert(
+                "Grupo y categoría no coinciden",
+                advertencia,
+                [
+                    {
+                        text: "Cancelar",
+                        style: "cancel"
+                    },
+                    {
+                        text: "Continuar igual",
+                        onPress: () => confirmarActualizacion()
+                    }
+                ]
+            );
 
-            atleta.id,
+            return;
+        }
 
-            nombre,
-
-            apellido,
-
-            fechaNacimiento,
-
-            disciplina,
-
-            grupo
-
-        );
-
-        Alert.alert(
-            "Éxito",
-            "Perfil actualizado correctamente"
-        );
-
-
-
-        navigation.goBack();
-
+        confirmarActualizacion();
     }
 
+
+
+    function confirmarActualizacion() {
+
+        actualizarAtleta(
+            atleta.id,
+            nombre,
+            apellido,
+            fechaNacimiento,
+            disciplina,
+            grupo
+        );
+
+        Alert.alert("Éxito", "Perfil actualizado correctamente.");
+        navigation.goBack();
+    }
 
 
 
     return (
 
-        <View
-            style={{
-                flex: 1,
-                padding: 20
-            }}
-        >
+        <View style={{ flex: 1, padding: 20 }}>
 
-
-            <Text>
-
-                Editar Atleta
-
-            </Text>
-
-
+            <Text>Editar Atleta</Text>
 
             <TextInput
-
                 placeholder="Nombre"
-
                 value={nombre}
-
                 onChangeText={setNombre}
-
             />
 
-
-
             <TextInput
-
                 placeholder="Apellido"
-
                 value={apellido}
-
                 onChangeText={setApellido}
-
             />
 
-
-
-            <TextInput
-
-                placeholder="Fecha Nacimiento (YYYY-MM-DD)"
-
-                value={fechaNacimiento}
-
-                onChangeText={setFechaNacimiento}
-
-            />
-
-
-
-            <TextInput
-
-                placeholder="Disciplina"
-
-                value={disciplina}
-
-                onChangeText={setDisciplina}
-
-            />
-
-
-
-            <TextInput
-
-                placeholder="Grupo"
-
-                value={grupo}
-
-                onChangeText={setGrupo}
-
-            />
-
-
+            <Text>Fecha de nacimiento</Text>
 
             <Button
-
-                title="Actualizar"
-
-                onPress={actualizar}
-
+                title={fechaNacimiento === "" ? "Seleccionar fecha" : fechaNacimiento}
+                onPress={() => setMostrarCalendario(true)}
             />
 
+            {
+                mostrarCalendario &&
+                <DateTimePicker
+                    value={fechaNacimiento === "" ? new Date(2010, 0, 1) : parsearFecha(fechaNacimiento)}
+                    mode="date"
+                    display="default"
+                    maximumDate={new Date()}
+                    onChange={onCambiarFecha}
+                />
+            }
 
+            <Text style={{ marginTop: 10 }}>Disciplina</Text>
 
-            <Button
+            <Picker selectedValue={disciplina} onValueChange={setDisciplina}>
+                <Picker.Item label="Seleccione una disciplina" value="" />
+                {DISCIPLINAS.map((d) => (
+                    <Picker.Item key={d} label={d} value={d} />
+                ))}
+            </Picker>
 
-                title="Cancelar"
+            <Text>Grupo</Text>
 
-                onPress={() => navigation.goBack()}
+            <Picker selectedValue={grupo} onValueChange={setGrupo}>
+                <Picker.Item label="Seleccione un grupo" value="" />
+                {GRUPOS.map((g) => (
+                    <Picker.Item key={g} label={g} value={g} />
+                ))}
+            </Picker>
 
-            />
+            <Button title="Actualizar" onPress={actualizar} />
 
+            <Button title="Cancelar" onPress={() => navigation.goBack()} />
 
         </View>
-
     );
-
 }

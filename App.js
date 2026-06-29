@@ -53,11 +53,17 @@ import ResultadosCompetenciaScreen from './src/screens/ResultadosCompetenciaScre
 
 import RegistroScreen from './src/screens/RegistroScreen';
 
+import RecuperarContraseniaScreen from './src/screens/RecuperarContraseniaScreen';
+
 
 
 import { 
     crearTablas 
 } from './src/database/database';
+
+import {
+    actualizarCategoriasAutomaticamente
+} from './src/services/atletaService';
 
 
 
@@ -95,6 +101,8 @@ export default function App(){
 
         crearTablas();
 
+        // HU-02 crit. 3: actualizar categorías automáticamente al arrancar
+        actualizarCategoriasAutomaticamente();
 
         revisarSesion();
 
@@ -380,6 +388,15 @@ export default function App(){
                     name="Registro"
 
                     component={RegistroScreen}
+
+                />
+
+
+                <Stack.Screen
+
+                    name="RecuperarContrasenia"
+
+                    component={RecuperarContraseniaScreen}
 
                 />
 

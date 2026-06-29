@@ -8,13 +8,22 @@ import {
     Text,
     TextInput,
     Button,
-    Alert
+    Alert,
+    Platform
 } from 'react-native';
+
+
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 
 import {
     crearCompetencia
 } from '../services/competenciaService';
+
+import {
+    formatearFecha,
+    parsearFecha
+} from '../utils/fechas';
 
 
 
@@ -26,10 +35,27 @@ export default function CrearCompetenciaScreen({ navigation }) {
 
     const [fecha,setFecha] = useState("");
 
+    const [mostrarCalendario, setMostrarCalendario] = useState(false);
+
     const [lugar,setLugar] = useState("");
 
     const [disciplinas,setDisciplinas] = useState("");
 
+
+
+    function onCambiarFecha(event, fechaSeleccionada) {
+
+        setMostrarCalendario(Platform.OS === "ios");
+
+        if (fechaSeleccionada) {
+
+            setFecha(
+                formatearFecha(fechaSeleccionada)
+            );
+
+        }
+
+    }
 
 
 
@@ -100,7 +126,6 @@ export default function CrearCompetenciaScreen({ navigation }) {
 
 
 
-
     return(
 
 
@@ -112,7 +137,6 @@ export default function CrearCompetenciaScreen({ navigation }) {
 
 
                 flex:1,
-
                 padding:20
 
 
@@ -151,9 +175,7 @@ export default function CrearCompetenciaScreen({ navigation }) {
                 style={{
 
                     borderWidth:1,
-
                     marginTop:10,
-
                     padding:10
 
                 }}
@@ -165,33 +187,41 @@ export default function CrearCompetenciaScreen({ navigation }) {
 
 
 
+            <Text style={{ marginTop: 10 }}>
+                Fecha
+            </Text>
 
-            <TextInput
+            <Button
 
+                title={fecha === "" ? "Seleccionar fecha" : fecha}
 
-                placeholder="Fecha"
-
-
-                value={fecha}
-
-
-                onChangeText={setFecha}
-
-
-                style={{
-
-                    borderWidth:1,
-
-                    marginTop:10,
-
-                    padding:10
-
-                }}
-
+                onPress={() => setMostrarCalendario(true)}
 
             />
 
+            {
+                mostrarCalendario &&
 
+                <DateTimePicker
+
+                    value={
+
+                        fecha === ""
+
+                            ? new Date()
+
+                            : parsearFecha(fecha)
+
+                    }
+
+                    mode="date"
+
+                    display="default"
+
+                    onChange={onCambiarFecha}
+
+                />
+            }
 
 
 
@@ -211,16 +241,13 @@ export default function CrearCompetenciaScreen({ navigation }) {
                 style={{
 
                     borderWidth:1,
-
                     marginTop:10,
-
                     padding:10
 
                 }}
 
 
             />
-
 
 
 
@@ -242,16 +269,13 @@ export default function CrearCompetenciaScreen({ navigation }) {
                 style={{
 
                     borderWidth:1,
-
                     marginTop:10,
-
                     padding:10
 
                 }}
 
 
             />
-
 
 
 

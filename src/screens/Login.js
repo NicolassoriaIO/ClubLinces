@@ -1,12 +1,14 @@
-import { 
-    View, 
-    Text, 
-    TextInput, 
+import {
+    View,
+    Text,
+    TextInput,
     Button,
-    Alert
+    Alert,
+    StyleSheet,
+    TouchableOpacity
 } from 'react-native';
 
-import { 
+import {
     useState,
     useContext,
     useCallback
@@ -26,6 +28,7 @@ import {
 } from '../services/sesionService';
 
 import { SessionContext } from '../context/SessionContext';
+import { COLORS } from '../constants/theme';
 
 
 
@@ -55,7 +58,6 @@ export default function Login({navigation}){
 
 
 
-
     async function iniciarSesion(){
 
 
@@ -66,7 +68,6 @@ export default function Login({navigation}){
             password
 
         );
-
 
 
 
@@ -90,7 +91,6 @@ export default function Login({navigation}){
 
 
         }
-
         else{
 
 
@@ -110,92 +110,91 @@ export default function Login({navigation}){
 
 
 
-
-
     return(
 
-        <View>
+        <View style={styles.contenedor}>
 
-
-            <Text>
-
+            <Text style={styles.titulo}>
                 CLUB LINCES
-
             </Text>
 
-
-
-
-
             <TextInput
-
-                placeholder="Correo"
-
+                placeholder="Correo electrónico"
                 value={correo}
-
                 onChangeText={setCorreo}
-
+                autoCapitalize="none"
+                keyboardType="email-address"
+                style={styles.input}
             />
-
-
-
-
 
             <TextInput
-
                 placeholder="Contraseña"
-
                 value={password}
-
                 secureTextEntry={true}
-
                 onChangeText={setPassword}
-
+                style={styles.input}
             />
 
-
-
-
+            <TouchableOpacity
+                onPress={() => navigation.navigate("RecuperarContrasenia")}
+            >
+                <Text style={styles.enlace}>
+                    ¿Olvidaste tu contraseña?
+                </Text>
+            </TouchableOpacity>
 
             <Button
-
                 title="Ingresar"
-
                 onPress={iniciarSesion}
-
+                color={COLORS.primario}
             />
-
-
-
-
 
             {
                 mostrarRegistro &&
-
                 <Button
-
                     title="Crear cuenta entrenador"
-
                     onPress={()=>
 
-
                         navigation.navigate(
-
                             "Registro"
-
                         )
 
-
                     }
-
                 />
             }
 
-
         </View>
-
 
     );
 
 
 }
+
+const styles = StyleSheet.create({
+    contenedor: {
+        flex: 1,
+        padding: 24,
+        justifyContent: "center",
+        backgroundColor: COLORS.fondo,
+    },
+    titulo: {
+        fontSize: 26,
+        fontWeight: "bold",
+        color: COLORS.primario,
+        textAlign: "center",
+        marginBottom: 24,
+    },
+    input: {
+        borderWidth: 1,
+        borderColor: COLORS.borde,
+        borderRadius: 8,
+        padding: 12,
+        marginBottom: 12,
+        backgroundColor: COLORS.blanco,
+    },
+    enlace: {
+        color: COLORS.primario,
+        textAlign: "right",
+        marginBottom: 16,
+    },
+});
