@@ -1,9 +1,8 @@
 export const GRUPOS = [
-    "Infantil",
-    "Juvenil",
-    "Sub-17",
-    "Sub-20",
-    "Adulto",
+    "Infantil Mañana",
+    "Infantil Tarde",
+    "Juvenil Mañana",
+    "Juvenil Tarde",
 ];
 
 export const DISCIPLINAS = [
@@ -11,8 +10,6 @@ export const DISCIPLINAS = [
     "Resistencia",
     "Coordinación",
     "Técnica",
-    "Saltos",
-    "Lanzamientos",
 ];
 
 export const PREGUNTAS_SEGURIDAD = [

@@ -1,6 +1,8 @@
-import { useState, useEffect } from 'react';
+import {
+    obtenerRendimientosPorAtleta
+} from '../services/rendimientoService';
 
-import { Picker } from '@react-native-picker/picker';
+import { DISCIPLINAS } from '../constants/opciones';
 
 import {
     View,

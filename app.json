@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "name": "Club Linces",
+    "slug": "clublinces",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/CLubLinces.jpeg",
+    "userInterfaceStyle": "dark",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.nicolassdev.clublinces"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/CLubLinces.jpeg",
+        "backgroundColor": "#000000"
+      },
+      "package": "com.nicolassdev.clublinces"
+    },
+    "web": {
+      "favicon": "./assets/CLubLinces.jpeg"
+    },
+    "plugins": [
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/CLubLinces.jpeg",
+          "resizeMode": "contain",
+          "backgroundColor": "#000000"
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "3bc033a2-f5e8-4a0a-ab42-1f13ad8fe82b"
+      }
+    }
+  }
+}

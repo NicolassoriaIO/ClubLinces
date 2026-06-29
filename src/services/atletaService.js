@@ -2,8 +2,6 @@ import { db } from '../database/database';
 import { parsearFecha } from '../utils/fechas';
 
 
-
-
 function calcularCategoria(fechaNacimiento) {
 
     const nacimiento = parsearFecha(fechaNacimiento);
@@ -21,22 +19,17 @@ function calcularCategoria(fechaNacimiento) {
     }
 
     if (edad >= 8  && edad <= 12) return "Infantil (8-12 años)";
-    if (edad >= 13 && edad <= 15) return "Juvenil (13-15 años)";
-    if (edad >= 16 && edad <= 17) return "Sub-17 (16-17 años)";
-    if (edad >= 18 && edad <= 20) return "Sub-20 (18-20 años)";
-    if (edad >= 21)               return "Adulto (21+ años)";
+    if (edad >= 13 && edad <= 17) return "Juvenil (13-17 años)";
 
-    return "Fuera de categoría"; 
+    return "Fuera de categoría";
 }
 
 
 
+
 const GRUPOS_POR_CATEGORIA = {
-    "Infantil (8-12 años)": ["Infantil"],
-    "Juvenil (13-15 años)": ["Juvenil"],
-    "Sub-17 (16-17 años)":  ["Sub-17"],
-    "Sub-20 (18-20 años)":  ["Sub-20"],
-    "Adulto (21+ años)":    ["Adulto"],
+    "Infantil (8-12 años)": ["Infantil Mañana", "Infantil Tarde"],
+    "Juvenil (13-17 años)": ["Juvenil Mañana", "Juvenil Tarde"],
     "Fuera de categoría":   [],
 };
 
