@@ -1,3 +1,5 @@
+import { parsearFecha } from '../utils/fechas';
+
 export function obtenerInicioSemana(fecha) {
 
     const inicio = new Date(fecha);
@@ -39,11 +41,9 @@ export function filtrarSesionesSemana(
 
     const fin = obtenerFinSemana(fecha);
 
-
-
     return sesiones.filter((sesion) => {
 
-        const fechaSesion = new Date(sesion.fecha);
+        const fechaSesion = parsearFecha(sesion.fecha);
 
         return fechaSesion >= inicio &&
                fechaSesion <= fin;

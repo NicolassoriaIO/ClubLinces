@@ -62,6 +62,26 @@ export default function CrearAtletaScreen({ navigation }) {
             return;
         }
 
+        const nacimiento = parsearFecha(fechaNacimiento);
+        const hoy = new Date();
+        let edad = hoy.getFullYear() - nacimiento.getFullYear();
+        const diferenciaMes = hoy.getMonth() - nacimiento.getMonth();
+
+        if (
+            diferenciaMes < 0 ||
+            (diferenciaMes === 0 && hoy.getDate() < nacimiento.getDate())
+        ) {
+            edad--;
+        }
+
+        if (edad > 17) {
+            Alert.alert(
+                "Edad no permitida",
+                "Solo se pueden registrar atletas de 8 a 17 años."
+            );
+            return;
+        }
+
         const advertencia = verificarCompatibilidadGrupo(fechaNacimiento, grupo);
 
         if (advertencia) {

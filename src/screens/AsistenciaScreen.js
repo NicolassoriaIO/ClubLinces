@@ -263,8 +263,6 @@ export default function AsistenciaScreen({ route }) {
 
                 renderItem={({item})=>(
 
-
-
                     <View
 
                         style={{
@@ -273,87 +271,102 @@ export default function AsistenciaScreen({ route }) {
 
                             padding:10,
 
-                            borderWidth:1
+                            borderWidth:1,
+
+                            borderRadius:8,
+
+                            borderColor: "#ddd"
 
                         }}
 
                     >
 
-
-
-                        <Text>
-
+                        <Text style={{ fontWeight: "bold", marginBottom: 8 }}>
 
                             {item.nombre} {item.apellido}
 
-
                         </Text>
 
+                        <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
 
+                            <View style={{ alignItems: "center" }}>
 
+                                <Button
 
-                        <Button
+                                    title="P"
 
-                            title="P"
+                                    disabled={soloLectura}
 
-                            disabled={soloLectura}
+                                    color={asistencias[item.id] === "P" ? "#4CAF50" : "#2196F3"}
 
-                            onPress={()=>
+                                    onPress={()=>
 
-                                marcar(
-                                    item.id,
-                                    "P"
-                                )
+                                        marcar(
+                                            item.id,
+                                            "P"
+                                        )
 
-                            }
+                                    }
 
-                        />
+                                />
 
+                                {asistencias[item.id] === "P" && <Text style={{ fontSize: 12, marginTop: 4 }}>✓</Text>}
 
+                            </View>
 
+                            <View style={{ alignItems: "center" }}>
 
-                        <Button
+                                <Button
 
-                            title="F"
+                                    title="F"
 
-                            disabled={soloLectura}
+                                    disabled={soloLectura}
 
-                            onPress={()=>
+                                    color={asistencias[item.id] === "F" ? "#F44336" : "#2196F3"}
 
-                                marcar(
-                                    item.id,
-                                    "F"
-                                )
+                                    onPress={()=>
 
-                            }
+                                        marcar(
+                                            item.id,
+                                            "F"
+                                        )
 
-                        />
+                                    }
 
+                                />
 
+                                {asistencias[item.id] === "F" && <Text style={{ fontSize: 12, marginTop: 4 }}>✓</Text>}
 
+                            </View>
 
-                        <Button
+                            <View style={{ alignItems: "center" }}>
 
-                            title="L"
+                                <Button
 
-                            disabled={soloLectura}
+                                    title="L"
 
-                            onPress={()=>
+                                    disabled={soloLectura}
 
-                                marcar(
-                                    item.id,
-                                    "L"
-                                )
+                                    color={asistencias[item.id] === "L" ? "#FFC107" : "#2196F3"}
 
-                            }
+                                    onPress={()=>
 
-                        />
+                                        marcar(
+                                            item.id,
+                                            "L"
+                                        )
 
+                                    }
 
+                                />
 
+                                {asistencias[item.id] === "L" && <Text style={{ fontSize: 12, marginTop: 4 }}>✓</Text>}
+
+                            </View>
+
+                        </View>
 
                     </View>
-
 
                 )}
 

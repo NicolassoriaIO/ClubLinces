@@ -144,7 +144,7 @@ export default function RecuperarContraseniaScreen({ navigation }) {
             [
                 {
                     text: "OK",
-                    onPress: () => navigation.navigate("Login"),
+                    onPress: () => navigation.replace("Login"),
                 },
             ]
         );
@@ -255,7 +255,7 @@ export default function RecuperarContraseniaScreen({ navigation }) {
 
             <Button
                 title="Volver al inicio de sesión"
-                onPress={() => navigation.navigate("Login")}
+                onPress={() => navigation.goBack()}
             />
 
         </View>

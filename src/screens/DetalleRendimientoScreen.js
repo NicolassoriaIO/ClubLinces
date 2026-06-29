@@ -6,6 +6,8 @@ import {
 
 import { DISCIPLINAS } from '../constants/opciones';
 
+import { formatearFecha, parsearFecha } from '../utils/fechas';
+
 import {
     View,
     Text,
@@ -356,34 +358,19 @@ export default function DetalleRendimientoScreen({ route }) {
 
                         <Text>
 
-
-
                             Disciplina: {item.disciplina}
 
-
-
                             {"\n"}
-
-
 
                             Resultado: {item.resultado}
 
-
-
                             {"\n"}
 
-
-
-                            Fecha: {item.fecha}
-
-
+                            Fecha: {formatearFecha(parsearFecha(item.fecha))}
 
                             {"\n"}
-
-
 
                             {
-
 
                                 item.marcaPersonal === 1
 

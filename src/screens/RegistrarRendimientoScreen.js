@@ -18,6 +18,16 @@ import {
 
 import { DISCIPLINAS } from '../constants/opciones';
 
+function obtenerUnidad(disciplina) {
+    const UNIDADES = {
+        "Velocidad": "segundos (1-600s)",
+        "Resistencia": "segundos (1-7200s)",
+        "Coordinación": "puntos (0-100)",
+        "Técnica": "puntos (0-100)",
+    };
+    return UNIDADES[disciplina] || "";
+}
+
 
 
 export default function RegistrarRendimientoScreen({ route, navigation }) {
@@ -91,8 +101,16 @@ export default function RegistrarRendimientoScreen({ route, navigation }) {
                 ))}
             </Picker>
 
+            {disciplina && (
+                <Text style={styles.hint}>
+                    Unidad: {obtenerUnidad(disciplina)}
+                </Text>
+            )}
+
+            <Text style={styles.etiqueta}>Resultado</Text>
+
             <TextInput
-                placeholder="Resultado"
+                placeholder="Ingrese el valor"
                 value={resultado}
                 onChangeText={setResultado}
                 keyboardType="numeric"
@@ -123,6 +141,13 @@ const styles = StyleSheet.create({
     etiqueta: {
         marginTop: 10,
         fontWeight: "600"
+    },
+
+    hint: {
+        marginTop: 8,
+        fontSize: 12,
+        color: "#666",
+        fontStyle: "italic"
     },
 
     input: {

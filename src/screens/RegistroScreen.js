@@ -124,7 +124,7 @@ export default function RegistroScreen({navigation}){
                 "Cuenta creada correctamente"
             );
 
-            navigation.navigate("Login");
+            navigation.replace("Login");
         }
         catch(error){
 
