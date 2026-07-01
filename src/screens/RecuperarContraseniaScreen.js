@@ -168,6 +168,7 @@ export default function RecuperarContraseniaScreen({ navigation }) {
                         onChangeText={setCorreo}
                         keyboardType="email-address"
                         autoCapitalize="none"
+                        placeholderTextColor="#B9ABAE"
                         style={styles.input}
                     />
 
@@ -192,6 +193,7 @@ export default function RecuperarContraseniaScreen({ navigation }) {
                         placeholder="Tu respuesta"
                         value={respuesta1}
                         onChangeText={setRespuesta1}
+                        placeholderTextColor="#B9ABAE"
                         style={styles.input}
                     />
 
@@ -203,6 +205,7 @@ export default function RecuperarContraseniaScreen({ navigation }) {
                         placeholder="Tu respuesta"
                         value={respuesta2}
                         onChangeText={setRespuesta2}
+                        placeholderTextColor="#B9ABAE"
                         style={styles.input}
                     />
 
@@ -228,6 +231,7 @@ export default function RecuperarContraseniaScreen({ navigation }) {
                         value={nuevaPassword}
                         onChangeText={setNuevaPassword}
                         secureTextEntry
+                        placeholderTextColor="#B9ABAE"
                         style={styles.input}
                     />
 
@@ -236,6 +240,7 @@ export default function RecuperarContraseniaScreen({ navigation }) {
                         value={confirmarPassword}
                         onChangeText={setConfirmarPassword}
                         secureTextEntry
+                        placeholderTextColor="#B9ABAE"
                         style={styles.input}
                     />
 

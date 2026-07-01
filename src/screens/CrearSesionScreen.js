@@ -118,6 +118,7 @@ export default function CrearSesionScreen({ navigation }) {
                 placeholder="Hora inicio (ej. 08:00)"
                 value={horaInicio}
                 onChangeText={setHoraInicio}
+                placeholderTextColor="#B9ABAE"
                 style={{ marginTop: 10 }}
             />
 
@@ -125,12 +126,14 @@ export default function CrearSesionScreen({ navigation }) {
                 placeholder="Hora fin (ej. 10:00)"
                 value={horaFin}
                 onChangeText={setHoraFin}
+                placeholderTextColor="#B9ABAE"
             />
 
             <TextInput
                 placeholder="Lugar"
                 value={lugar}
                 onChangeText={setLugar}
+                placeholderTextColor="#B9ABAE"
             />
 
             <Text style={{ marginTop: 10 }}>Grupo</Text>
@@ -146,6 +149,7 @@ export default function CrearSesionScreen({ navigation }) {
                 placeholder="Descripción"
                 value={descripcion}
                 onChangeText={setDescripcion}
+                placeholderTextColor="#B9ABAE"
             />
 
             <Button title="Guardar" onPress={guardar} />

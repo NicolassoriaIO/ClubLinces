@@ -88,6 +88,7 @@ export default function Login({navigation}){
                 onChangeText={setCorreo}
                 autoCapitalize="none"
                 keyboardType="email-address"
+                placeholderTextColor="#B9ABAE"
                 style={styles.input}
             />
 
@@ -96,6 +97,7 @@ export default function Login({navigation}){
                 value={password}
                 secureTextEntry={true}
                 onChangeText={setPassword}
+                placeholderTextColor="#B9ABAE"
                 style={styles.input}
             />
 

@@ -30,7 +30,7 @@ function obtenerUnidad(disciplina) {
 
 export default function RegistrarRendimientoScreen({ route, navigation }) {
 
-    const { atleta, sesion } = route.params;
+    const { atleta, sesion } = route.params || {};
 
     const [disciplina, setDisciplina] = useState("");
     const [resultado, setResultado] = useState("");
@@ -42,6 +42,11 @@ export default function RegistrarRendimientoScreen({ route, navigation }) {
                 "Campos incompletos",
                 "Debe completar todos los campos."
             );
+            return;
+        }
+
+        if (!atleta?.id || !sesion?.id) {
+            Alert.alert("Error", "Datos inválidos.");
             return;
         }
 
@@ -108,6 +113,7 @@ export default function RegistrarRendimientoScreen({ route, navigation }) {
                 value={resultado}
                 onChangeText={setResultado}
                 keyboardType="numeric"
+                placeholderTextColor="#B9ABAE"
                 style={styles.input}
             />
 

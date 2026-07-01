@@ -12,9 +12,13 @@ export default function DetalleAtletaScreen({
     navigation
 }) {
 
-    const { atleta } = route.params;
+    const { atleta } = route.params || {};
 
     function desactivar(){
+        if (!atleta?.id) {
+            Alert.alert("Error", "Atleta no válido.");
+            return;
+        }
 
         Alert.alert(
 

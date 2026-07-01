@@ -54,6 +54,7 @@ function FilaResultado({ item, onGuardar, yaGuardado }) {
                 keyboardType="numeric"
                 value={posicion}
                 onChangeText={setPosicion}
+                placeholderTextColor="#B9ABAE"
                 style={styles.input}
             />
 
@@ -62,6 +63,7 @@ function FilaResultado({ item, onGuardar, yaGuardado }) {
                 keyboardType="numeric"
                 value={marca}
                 onChangeText={setMarca}
+                placeholderTextColor="#B9ABAE"
                 style={styles.input}
             />
 
@@ -73,7 +75,7 @@ function FilaResultado({ item, onGuardar, yaGuardado }) {
 
 export default function ResultadosCompetenciaScreen({ route }) {
 
-    const { competencia } = route.params;
+    const { competencia } = route.params || {};
 
     const [atletas, setAtletas] = useState([]);
     const [idsGuardados, setIdsGuardados] = useState(new Set());
@@ -86,6 +88,7 @@ export default function ResultadosCompetenciaScreen({ route }) {
     }, []);
 
     function cargar() {
+        if (!competencia?.id) return;
 
         setAtletas(obtenerConvocados(competencia.id));
 

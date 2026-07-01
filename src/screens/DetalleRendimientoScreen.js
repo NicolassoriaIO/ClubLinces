@@ -18,7 +18,7 @@ import { Picker } from '@react-native-picker/picker';
 
 export default function DetalleRendimientoScreen({ route }) {
 
-    const { atleta } = route.params;
+    const { atleta } = route.params || {};
 
     const [rendimientos, setRendimientos] = useState([]);
 
@@ -31,15 +31,11 @@ export default function DetalleRendimientoScreen({ route }) {
     }, []);
 
     function cargarRendimientos() {
-
-        setRendimientos(
-
-            obtenerRendimientosPorAtleta(
-                atleta.id
-            )
-
-        );
-
+        if (atleta?.id) {
+            setRendimientos(
+                obtenerRendimientosPorAtleta(atleta.id)
+            );
+        }
     }
 
     const lista = rendimientos.filter((item) =>

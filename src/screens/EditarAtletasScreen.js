@@ -24,14 +24,14 @@ import { formatearFecha, parsearFecha } from '../utils/fechas';
 
 export default function EditarAtletaScreen({ route, navigation }) {
 
-    const { atleta } = route.params;
+    const { atleta } = route.params || {};
 
-    const [nombre, setNombre] = useState(atleta.nombre);
-    const [apellido, setApellido] = useState(atleta.apellido);
-    const [fechaNacimiento, setFechaNacimiento] = useState(atleta.fechaNacimiento);
+    const [nombre, setNombre] = useState(atleta?.nombre || "");
+    const [apellido, setApellido] = useState(atleta?.apellido || "");
+    const [fechaNacimiento, setFechaNacimiento] = useState(atleta?.fechaNacimiento || "");
     const [mostrarCalendario, setMostrarCalendario] = useState(false);
-    const [disciplina, setDisciplina] = useState(atleta.disciplina);
-    const [grupo, setGrupo] = useState(atleta.grupo);
+    const [disciplina, setDisciplina] = useState(atleta?.disciplina || "");
+    const [grupo, setGrupo] = useState(atleta?.grupo || "");
 
     function onCambiarFecha(event, fechaSeleccionada) {
 
@@ -84,6 +84,10 @@ export default function EditarAtletaScreen({ route, navigation }) {
     }
 
     function confirmarActualizacion() {
+        if (!atleta?.id) {
+            Alert.alert("Error", "Atleta no válido.");
+            return;
+        }
 
         actualizarAtleta(
             atleta.id,
@@ -108,12 +112,14 @@ export default function EditarAtletaScreen({ route, navigation }) {
                 placeholder="Nombre"
                 value={nombre}
                 onChangeText={setNombre}
+                placeholderTextColor="#B9ABAE"
             />
 
             <TextInput
                 placeholder="Apellido"
                 value={apellido}
                 onChangeText={setApellido}
+                placeholderTextColor="#B9ABAE"
             />
 
             <Text>Fecha de nacimiento</Text>

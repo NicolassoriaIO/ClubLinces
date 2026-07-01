@@ -34,7 +34,7 @@ import {
 
 export default function DetalleCompetenciaScreen({route, navigation}){
 
-    const { competencia } = route.params;
+    const { competencia } = route.params || {};
 
     const [atletas,setAtletas] = useState([]);
 
@@ -47,26 +47,23 @@ export default function DetalleCompetenciaScreen({route, navigation}){
     },[]);
 
     function cargar(){
+        if (!competencia?.id) return;
 
         setAtletas(
-
             obtenerTodosAtletas()
-
         );
 
         setConvocados(
-
-            obtenerConvocados(
-
-                competencia.id
-
-            )
-
+            obtenerConvocados(competencia.id)
         );
 
     }
 
     function seleccionar(id){
+        if (!competencia?.id) {
+            Alert.alert("Error", "Competencia no válida.");
+            return;
+        }
 
         const yaConvocado = convocados.some(
             (c) => c.id === id

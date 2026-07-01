@@ -119,6 +119,8 @@ export default function CrearCompetenciaScreen({ navigation }) {
 
                 onChangeText={setNombre}
 
+                placeholderTextColor="#B9ABAE"
+
                 style={{
 
                     borderWidth:1,
@@ -173,6 +175,8 @@ export default function CrearCompetenciaScreen({ navigation }) {
 
                 onChangeText={setLugar}
 
+                placeholderTextColor="#B9ABAE"
+
                 style={{
 
                     borderWidth:1,
@@ -190,6 +194,8 @@ export default function CrearCompetenciaScreen({ navigation }) {
                 value={disciplinas}
 
                 onChangeText={setDisciplinas}
+
+                placeholderTextColor="#B9ABAE"
 
                 style={{
 

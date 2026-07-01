@@ -23,7 +23,7 @@ import {
 
 export default function AsistenciaScreen({ route }) {
 
-    const { sesion } = route.params;
+    const { sesion } = route.params || {};
 
     const [atletas,setAtletas] = useState([]);
 
@@ -40,24 +40,17 @@ export default function AsistenciaScreen({ route }) {
     },[]);
 
     function cargarAtletas(){
+        if (!sesion?.id) return;
 
         setAtletas(
-
             obtenerAtletasPorGrupo(sesion.grupo)
-
         );
 
-        const yaGuardada = existeAsistenciaSesion(
-            sesion.id
-        );
-
+        const yaGuardada = existeAsistenciaSesion(sesion.id);
         const vencida = estaBloqueadaPorTiempo(sesion);
 
         setBloqueadoPorTiempo(vencida);
-
-        setSoloLectura(
-            yaGuardada || vencida
-        );
+        setSoloLectura(yaGuardada || vencida);
 
         if(vencida && !yaGuardada){
 

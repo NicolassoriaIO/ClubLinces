@@ -131,6 +131,7 @@ export default function CrearAtletaScreen({ navigation }) {
                 placeholder="Nombre"
                 value={nombre}
                 onChangeText={setNombre}
+                placeholderTextColor="#B9ABAE"
                 style={{ marginBottom: 10 }}
             />
 
@@ -138,6 +139,7 @@ export default function CrearAtletaScreen({ navigation }) {
                 placeholder="Apellido"
                 value={apellido}
                 onChangeText={setApellido}
+                placeholderTextColor="#B9ABAE"
                 style={{ marginBottom: 10 }}
             />
 

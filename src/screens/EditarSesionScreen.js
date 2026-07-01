@@ -31,21 +31,21 @@ export default function EditarSesionScreen({
     navigation
 }) {
 
-    const { sesion } = route.params;
+    const { sesion } = route.params || {};
 
-    const [fecha, setFecha] = useState(sesion.fecha);
+    const [fecha, setFecha] = useState(sesion?.fecha || "");
 
     const [mostrarCalendario, setMostrarCalendario] = useState(false);
 
-    const [horaInicio, setHoraInicio] = useState(sesion.horaInicio);
+    const [horaInicio, setHoraInicio] = useState(sesion?.horaInicio || "");
 
-    const [horaFin, setHoraFin] = useState(sesion.horaFin);
+    const [horaFin, setHoraFin] = useState(sesion?.horaFin || "");
 
-    const [lugar, setLugar] = useState(sesion.lugar);
+    const [lugar, setLugar] = useState(sesion?.lugar || "");
 
-    const [grupo, setGrupo] = useState(sesion.grupo);
+    const [grupo, setGrupo] = useState(sesion?.grupo || "");
 
-    const [descripcion, setDescripcion] = useState(sesion.descripcion);
+    const [descripcion, setDescripcion] = useState(sesion?.descripcion || "");
 
     function onCambiarFecha(event, fechaSeleccionada) {
 
@@ -79,6 +79,11 @@ export default function EditarSesionScreen({
 
             return;
 
+        }
+
+        if (!sesion?.id) {
+            Alert.alert("Error", "Sesión no válida.");
+            return;
         }
 
         actualizarSesion(
@@ -158,6 +163,7 @@ export default function EditarSesionScreen({
                 placeholder="Hora inicio"
                 value={horaInicio}
                 onChangeText={setHoraInicio}
+                placeholderTextColor="#B9ABAE"
                 style={{ marginTop: 10 }}
             />
 
@@ -165,12 +171,14 @@ export default function EditarSesionScreen({
                 placeholder="Hora fin"
                 value={horaFin}
                 onChangeText={setHoraFin}
+                placeholderTextColor="#B9ABAE"
             />
 
             <TextInput
                 placeholder="Lugar"
                 value={lugar}
                 onChangeText={setLugar}
+                placeholderTextColor="#B9ABAE"
             />
 
             <Text style={{ marginTop: 10 }}>
@@ -201,6 +209,7 @@ export default function EditarSesionScreen({
                 placeholder="Descripción"
                 value={descripcion}
                 onChangeText={setDescripcion}
+                placeholderTextColor="#B9ABAE"
             />
 
             <Button

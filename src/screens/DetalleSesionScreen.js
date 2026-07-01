@@ -16,30 +16,25 @@ import {
 
 export default function DetalleSesionScreen({ route, navigation }) {
 
-    const { sesion } = route.params;
+    const { sesion } = route.params || {};
 
     const [motivo, setMotivo] = useState("");
 
     function cancelar() {
-
         if(motivo === ""){
-
             Alert.alert(
                 "Falta motivo",
                 "Debe ingresar el motivo de cancelación."
             );
-
             return;
-
         }
 
-        cancelarSesion(
+        if (!sesion?.id) {
+            Alert.alert("Error", "Sesión no válida.");
+            return;
+        }
 
-            sesion.id,
-
-            motivo
-
-        );
+        cancelarSesion(sesion.id, motivo);
 
         Alert.alert(
 
@@ -163,6 +158,8 @@ export default function DetalleSesionScreen({ route, navigation }) {
                 value={motivo}
 
                 onChangeText={setMotivo}
+
+                placeholderTextColor="#B9ABAE"
 
             />
 
