@@ -82,7 +82,7 @@ export default function Home({ navigation }) {
 
             <ScrollView contentContainerStyle={s.body} showsVerticalScrollIndicator={false}>
 
-                {/* ── Banner club ── */}
+                
                 <View style={s.banner}>
                     <View style={s.bannerIcon}>
                         <Ionicons name="shield-checkmark" size={22} color={GRANATE} />
@@ -93,7 +93,7 @@ export default function Home({ navigation }) {
                     </View>
                 </View>
 
-                {/* ── Stats ── */}
+                
                 <View style={s.statsRow}>
                     <View style={s.statCard}>
                         <Text style={s.statNum}>{totalAtletas}</Text>
@@ -113,7 +113,7 @@ export default function Home({ navigation }) {
                     </View>
                 </View>
 
-                {/* ── Accesos rápidos ── */}
+                
                 <View style={s.gridRow}>
                     {accesos.map((a) => (
                         <TouchableOpacity
@@ -130,7 +130,7 @@ export default function Home({ navigation }) {
                     ))}
                 </View>
 
-                {/* ── Sesiones de hoy ── */}
+                
                 <View style={s.seccion}>
                     <View style={s.seccionHeader}>
                         <Text style={s.seccionTitulo}>Sesiones de hoy</Text>

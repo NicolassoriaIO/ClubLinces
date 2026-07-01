@@ -1,19 +1,4 @@
-// src/repositories/usuarioRepository.js
-//
-// DIP (Inversión de Dependencias):
-// Antes, `usuarioService.js` llamaba directamente a `db.runSync(...)` /
-// `db.getFirstSync(...)`. Eso significa que la lógica de negocio (reglas
-// de login, bloqueo por intentos, recuperación de contraseña) dependía
-// directamente del detalle concreto "SQLite".
-//
-// Ahora esta dependencia se invierte: el servicio (capa alta) depende de
-// una ABSTRACCIÓN (este objeto, con un contrato fijo de funciones), y este
-// archivo (capa baja) es el único que conoce a `db` / SQLite.
-//
-// Si algún día se cambia SQLite por una API REST, AsyncStorage, Firebase,
-// etc., solo se reescribe ESTE archivo. `usuarioService.js` no se toca,
-// porque solo conoce el contrato (las firmas de las funciones), no la
-// implementación.
+
 
 import { db } from '../database/database';
 

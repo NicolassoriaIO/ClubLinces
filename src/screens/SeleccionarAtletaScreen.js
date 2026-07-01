@@ -14,17 +14,11 @@ import {
     obtenerAtletas
 } from '../services/atletaService';
 
-
-
 export default function SeleccionarAtletaScreen({ route, navigation }) {
-
 
     const { sesion } = route.params || {};
 
-
     const [atletas, setAtletas] = useState([]);
-
-
 
     useFocusEffect(
 
@@ -35,8 +29,6 @@ export default function SeleccionarAtletaScreen({ route, navigation }) {
         }, [])
 
     );
-
-
 
     function cargarAtletas() {
 
@@ -62,8 +54,6 @@ export default function SeleccionarAtletaScreen({ route, navigation }) {
             });
         }
     }
-
-
 
     return (
 

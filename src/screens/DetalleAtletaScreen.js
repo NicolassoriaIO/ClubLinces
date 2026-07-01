@@ -12,7 +12,6 @@ export default function DetalleAtletaScreen({
     navigation
 }) {
 
-
     const { atleta } = route.params;
 
     function desactivar(){
@@ -42,7 +41,6 @@ export default function DetalleAtletaScreen({
 
     }
 
-
     return (
 
         <View
@@ -56,37 +54,29 @@ export default function DetalleAtletaScreen({
                 ID: {atleta.id}
             </Text>
 
-
             <Text>
                 Nombre: {atleta.nombre}
             </Text>
-
 
             <Text>
                 Apellido: {atleta.apellido}
             </Text>
 
-
             <Text>
                 Fecha nacimiento: {atleta.fechaNacimiento}
             </Text>
-
 
             <Text>
                 Categoria: {atleta.categoria}
             </Text>
 
-
             <Text>
                 Disciplina: {atleta.disciplina}
             </Text>
 
-
             <Text>
                 Grupo: {atleta.grupo}
             </Text>
-
-
 
             <Button
 
@@ -133,10 +123,8 @@ export default function DetalleAtletaScreen({
             
             />
 
-
         </View>
 
     );
-
 
 }

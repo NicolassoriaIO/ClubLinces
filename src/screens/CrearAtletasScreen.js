@@ -22,8 +22,6 @@ import { GRUPOS, DISCIPLINAS } from '../constants/opciones';
 
 import { formatearFecha, parsearFecha } from '../utils/fechas';
 
-
-
 export default function CrearAtletaScreen({ navigation }) {
 
     const [nombre, setNombre] = useState("");
@@ -33,8 +31,6 @@ export default function CrearAtletaScreen({ navigation }) {
     const [disciplina, setDisciplina] = useState("");
     const [grupo, setGrupo] = useState("");
 
-
-
     function onCambiarFecha(event, fechaSeleccionada) {
 
         setMostrarCalendario(Platform.OS === "ios");
@@ -43,8 +39,6 @@ export default function CrearAtletaScreen({ navigation }) {
             setFechaNacimiento(formatearFecha(fechaSeleccionada));
         }
     }
-
-
 
     function guardar() {
 
@@ -107,8 +101,6 @@ export default function CrearAtletaScreen({ navigation }) {
         confirmarGuardado();
     }
 
-
-
     function confirmarGuardado() {
 
         insertarAtleta(nombre, apellido, fechaNacimiento, disciplina, grupo);
@@ -119,8 +111,6 @@ export default function CrearAtletaScreen({ navigation }) {
         navigation.goBack();
     }
 
-
-
     function limpiar() {
         setNombre("");
         setApellido("");
@@ -128,8 +118,6 @@ export default function CrearAtletaScreen({ navigation }) {
         setDisciplina("");
         setGrupo("");
     }
-
-
 
     return (
 

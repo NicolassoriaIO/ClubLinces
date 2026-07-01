@@ -1,7 +1,6 @@
 import { db } from '../database/database';
 import { parsearFecha } from '../utils/fechas';
 
-
 function calcularCategoria(fechaNacimiento) {
 
     const nacimiento = parsearFecha(fechaNacimiento);
@@ -24,15 +23,11 @@ function calcularCategoria(fechaNacimiento) {
     return "Fuera de categoría";
 }
 
-
-
-
 const GRUPOS_POR_CATEGORIA = {
     "Infantil (8-12 años)": ["Infantil Mañana", "Infantil Tarde"],
     "Juvenil (13-17 años)": ["Juvenil Mañana", "Juvenil Tarde"],
     "Fuera de categoría":   [],
 };
-
 
 export function verificarCompatibilidadGrupo(fechaNacimiento, grupo) {
 
@@ -44,30 +39,28 @@ export function verificarCompatibilidadGrupo(fechaNacimiento, grupo) {
     return `Este atleta es "${categoria}" pero estás asignándolo al grupo "${grupo}". ¿Querés continuar de todas formas?`;
 }
 
-
-
-
-
 export function insertarAtleta(nombre, apellido, fechaNacimiento, disciplina, grupo) {
-
-    db.runSync(
-        `
-        INSERT INTO atletas
-        (nombre, apellido, fechaNacimiento, categoria, disciplina, grupo, activo)
-        VALUES (?, ?, ?, ?, ?, ?, 1)
-        `,
-        [
-            nombre,
-            apellido,
-            fechaNacimiento,
-            calcularCategoria(fechaNacimiento),
-            disciplina,
-            grupo
-        ]
-    );
+    try {
+        db.runSync(
+            `
+            INSERT INTO atletas
+            (nombre, apellido, fechaNacimiento, categoria, disciplina, grupo, activo)
+            VALUES (?, ?, ?, ?, ?, ?, 1)
+            `,
+            [
+                nombre,
+                apellido,
+                fechaNacimiento,
+                calcularCategoria(fechaNacimiento),
+                disciplina,
+                grupo
+            ]
+        );
+    } catch (error) {
+        console.error('Error insertando atleta:', error);
+        throw new Error('No se pudo crear el atleta.');
+    }
 }
-
-
 
 export function obtenerAtletas() {
 
@@ -80,8 +73,6 @@ export function obtenerAtletas() {
         `
     );
 }
-
-
 
 export function actualizarAtleta(id, nombre, apellido, fechaNacimiento, disciplina, grupo) {
 
@@ -109,8 +100,6 @@ export function actualizarAtleta(id, nombre, apellido, fechaNacimiento, discipli
     );
 }
 
-
-
 export function desactivarAtleta(id) {
 
     db.runSync(
@@ -122,8 +111,6 @@ export function desactivarAtleta(id) {
         [id]
     );
 }
-
-
 
 export function obtenerAtletasPorGrupo(grupo) {
 
@@ -138,8 +125,6 @@ export function obtenerAtletasPorGrupo(grupo) {
     );
 }
 
-
-
 export function obtenerTodosAtletas() {
 
     return db.getAllSync(
@@ -151,8 +136,6 @@ export function obtenerTodosAtletas() {
         `
     );
 }
-
-
 
 export function actualizarCategoriasAutomaticamente() {
 

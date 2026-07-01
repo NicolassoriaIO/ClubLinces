@@ -16,20 +16,13 @@ import {
 
 import { Picker } from '@react-native-picker/picker';
 
-
-
 export default function DetalleRendimientoScreen({ route }) {
-
 
     const { atleta } = route.params;
 
-
     const [rendimientos, setRendimientos] = useState([]);
 
-
     const [disciplina, setDisciplina] = useState("");
-
-
 
     useEffect(() => {
 
@@ -37,10 +30,7 @@ export default function DetalleRendimientoScreen({ route }) {
 
     }, []);
 
-
-
     function cargarRendimientos() {
-
 
         setRendimientos(
 
@@ -52,21 +42,13 @@ export default function DetalleRendimientoScreen({ route }) {
 
     }
 
-
-
-
     const lista = rendimientos.filter((item) =>
-
 
         disciplina === "" ||
 
         item.disciplina === disciplina
 
-
     );
-
-
-
 
     const ultimos = lista
 
@@ -74,12 +56,7 @@ export default function DetalleRendimientoScreen({ route }) {
 
         .reverse();
 
-
-
-
-
     return (
-
 
         <View
 
@@ -93,60 +70,37 @@ export default function DetalleRendimientoScreen({ route }) {
 
         >
 
-
-
             <Text>
-
 
                 Historial de rendimiento
 
-
                 {"\n"}
-
 
                 {atleta.nombre} {atleta.apellido}
 
-
             </Text>
-
-
-
 
             {
 
                 atleta.activo === 0 && (
 
-
                     <Text>
-
 
                         Atleta inactivo
 
-
                     </Text>
-
 
                 )
 
-
             }
-
-
-
-
-
 
             <Picker
 
-
                 selectedValue={disciplina}
-
 
                 onValueChange={setDisciplina}
 
-
             >
-
 
                 <Picker.Item
 
@@ -156,8 +110,6 @@ export default function DetalleRendimientoScreen({ route }) {
 
                 />
 
-
-
                 <Picker.Item
 
                     label="Velocidad"
@@ -165,8 +117,6 @@ export default function DetalleRendimientoScreen({ route }) {
                     value="Velocidad"
 
                 />
-
-
 
                 <Picker.Item
 
@@ -176,8 +126,6 @@ export default function DetalleRendimientoScreen({ route }) {
 
                 />
 
-
-
                 <Picker.Item
 
                     label="Coordinación"
@@ -185,8 +133,6 @@ export default function DetalleRendimientoScreen({ route }) {
                     value="Coordinación"
 
                 />
-
-
 
                 <Picker.Item
 
@@ -196,24 +142,13 @@ export default function DetalleRendimientoScreen({ route }) {
 
                 />
 
-
             </Picker>
-
-
-
-
 
             <Text>
 
-
                 Evolución últimos registros
 
-
             </Text>
-
-
-
-
 
             <View
 
@@ -233,12 +168,9 @@ export default function DetalleRendimientoScreen({ route }) {
 
             >
 
-
                 {
 
-
                     ultimos.map((item,index)=>(
-
 
                         <View
 
@@ -246,34 +178,25 @@ export default function DetalleRendimientoScreen({ route }) {
 
                             style={{
 
-
                                 flexDirection:"row",
 
                                 alignItems:"center",
 
                                 marginTop:5
 
-
                             }}
 
                         >
 
-
                             <Text>
-
 
                                 {index + 1}
 
-
                             </Text>
-
-
-
 
                             <View
 
                                 style={{
-
 
                                     width:Number(item.resultado) * 5,
 
@@ -283,46 +206,27 @@ export default function DetalleRendimientoScreen({ route }) {
 
                                     marginLeft:10
 
-
                                 }}
 
                             />
 
-
                             <Text>
-
 
                                 {item.resultado}
 
-
                             </Text>
-
 
                         </View>
 
-
                     ))
-
 
                 }
 
-
-
             </View>
-
-
-
-
-
-
 
             <FlatList
 
-
-
                 data={lista}
-
-
 
                 keyExtractor={(item)=>
 
@@ -330,16 +234,11 @@ export default function DetalleRendimientoScreen({ route }) {
 
                 }
 
-
-
                 renderItem={({item})=>(
-
-
 
                     <View
 
                         style={{
-
 
                             marginTop:20,
 
@@ -349,12 +248,9 @@ export default function DetalleRendimientoScreen({ route }) {
 
                             borderRadius:8
 
-
                         }}
 
                     >
-
-
 
                         <Text>
 
@@ -384,43 +280,26 @@ export default function DetalleRendimientoScreen({ route }) {
 
                             }
 
-
-
                         </Text>
-
 
                     </View>
 
-
-
                 )}
-
-
 
                 ListEmptyComponent={
 
-
                     <Text>
-
 
                         Aún no hay marcas registradas para este atleta.
 
-
                     </Text>
-
 
                 }
 
-
             />
-
-
-
 
         </View>
 
-
     );
-
 
 }

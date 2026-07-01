@@ -1,59 +1,38 @@
 import { db } from '../database/database';
 
-
-
 export function insertarSesion(sesion){
-
-
-    db.runSync(
-
-        `
-        INSERT INTO sesiones
-        (
-            fecha,
-            horaInicio,
-            horaFin,
-            lugar,
-            grupo,
-            descripcion,
-            estado
-        )
-
-
-        VALUES(?,?,?,?,?,?,?)
-
-        `,
-
-
-        [
-
-            sesion.fecha,
-
-            sesion.horaInicio,
-
-            sesion.horaFin,
-
-            sesion.lugar,
-
-            sesion.grupo,
-
-            sesion.descripcion,
-
-            "ACTIVO"
-
-        ]
-
-    );
-
-
+    try {
+        db.runSync(
+            `
+            INSERT INTO sesiones
+            (
+                fecha,
+                horaInicio,
+                horaFin,
+                lugar,
+                grupo,
+                descripcion,
+                estado
+            )
+            VALUES(?,?,?,?,?,?,?)
+            `,
+            [
+                sesion.fecha,
+                sesion.horaInicio,
+                sesion.horaFin,
+                sesion.lugar,
+                sesion.grupo,
+                sesion.descripcion,
+                "ACTIVO"
+            ]
+        );
+    } catch (error) {
+        console.error('Error insertando sesión:', error);
+        throw new Error('No se pudo crear la sesión.');
+    }
 }
 
-
-
-
-
 export function obtenerSesiones(){
-
 
     return db.getAllSync(
 
@@ -66,18 +45,12 @@ export function obtenerSesiones(){
 
     );
 
-
 }
-
-
-
-
 
 export function actualizarSesion(
     id,
     sesion
 ){
-
 
     db.runSync(
 
@@ -98,11 +71,9 @@ export function actualizarSesion(
 
         descripcion=?
 
-
         WHERE id=?
 
         `,
-
 
         [
 
@@ -124,12 +95,9 @@ export function actualizarSesion(
 
     );
 
-
 }
 
-
 export function cancelarSesion(id, motivo){
-
 
     db.runSync(
 
@@ -157,6 +125,5 @@ export function cancelarSesion(id, motivo){
         ]
 
     );
-
 
 }

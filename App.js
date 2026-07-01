@@ -4,21 +4,17 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-
 import { Ionicons } from '@expo/vector-icons';
-
 
 import Login                    from './src/screens/Login';
 import RegistroScreen           from './src/screens/RegistroScreen';
 import RecuperarContraseniaScreen from './src/screens/RecuperarContraseniaScreen';
-
 
 import Home                     from './src/screens/Home';
 import AgendaScreen             from './src/screens/AgendaScreen';
 import AtletasScreen            from './src/screens/AtletasScreen';
 import DetalleRendimientoScreen from './src/screens/DetalleRendimientoScreen';
 import CompetenciasScreen       from './src/screens/CompetenciasScreen';
-
 
 import CrearAtletaScreen        from './src/screens/CrearAtletasScreen';
 import EditarAtletasScreen      from './src/screens/EditarAtletasScreen';
@@ -33,7 +29,6 @@ import DetalleCompetenciaScreen from './src/screens/DetalleCompetenciaScreen';
 import CrearCompetenciaScreen   from './src/screens/CrearCompetenciaScreen';
 import ResultadosCompetenciaScreen from './src/screens/ResultadosCompetenciaScreen';
 
-
 import { crearTablas }                        from './src/database/database';
 import { actualizarCategoriasAutomaticamente } from './src/services/atletaService';
 import { obtenerSesion, cerrarSesion }        from './src/services/sesionService';
@@ -44,15 +39,11 @@ const GRANATE = '#7A1F3B';
 const Stack = createNativeStackNavigator();
 const Tab   = createBottomTabNavigator();
 
-
-
 const headerOpts = {
     headerStyle: { backgroundColor: GRANATE },
     headerTintColor: '#fff',
     headerTitleStyle: { fontWeight: 'bold' },
 };
-
-
 
 function InicioStack() {
     return (
@@ -116,9 +107,6 @@ function CompetenciasStack() {
     );
 }
 
-
-
-
 function MainTabs({ onSalir }) {
     return (
         <Tab.Navigator
@@ -168,29 +156,41 @@ function MainTabs({ onSalir }) {
     );
 }
 
-
-
-
 export default function App() {
 
     const [cargando, setCargando] = useState(true);
     const [sesion,   setSesion]   = useState(null);
 
     useEffect(() => {
-        crearTablas();
-        actualizarCategoriasAutomaticamente();
+        try {
+            crearTablas();
+            actualizarCategoriasAutomaticamente();
+        } catch (error) {
+            console.error('Error inicializando app:', error);
+        }
         revisarSesion();
     }, []);
 
     async function revisarSesion() {
-        const usuario = await obtenerSesion();
-        setSesion(usuario);
-        setCargando(false);
+        try {
+            const usuario = await obtenerSesion();
+            setSesion(usuario);
+        } catch (error) {
+            console.error('Error revisando sesión:', error);
+            setSesion(null);
+        } finally {
+            setCargando(false);
+        }
     }
 
     async function cerrarSesionApp() {
-        await cerrarSesion();
-        setSesion(null);
+        try {
+            await cerrarSesion();
+            setSesion(null);
+        } catch (error) {
+            console.error('Error cerrando sesión:', error);
+            setSesion(null);
+        }
     }
 
     function iniciarSesionApp(usuario) {

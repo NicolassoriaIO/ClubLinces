@@ -2,53 +2,33 @@ import { db } from '../database/database';
 
 import { esMarcaPersonal } from './rendimientoService';
 
-
-
-
-
 export function crearCompetencia(competencia){
-
-
-    db.runSync(
-
-        `
-        INSERT INTO competencias
-        (
-            nombre,
-            fecha,
-            lugar,
-            disciplinas
-        )
-
-        VALUES (?,?,?,?)
-
-        `,
-
-        [
-
-            competencia.nombre,
-
-            competencia.fecha,
-
-            competencia.lugar,
-
-            competencia.disciplinas
-
-        ]
-
-    );
-
-
+    try {
+        db.runSync(
+            `
+            INSERT INTO competencias
+            (
+                nombre,
+                fecha,
+                lugar,
+                disciplinas
+            )
+            VALUES (?,?,?,?)
+            `,
+            [
+                competencia.nombre,
+                competencia.fecha,
+                competencia.lugar,
+                competencia.disciplinas
+            ]
+        );
+    } catch (error) {
+        console.error('Error creando competencia:', error);
+        throw new Error('No se pudo crear la competencia.');
+    }
 }
 
-
-
-
-
-
-
 export function obtenerCompetencias(){
-
 
     return db.getAllSync(
 
@@ -64,17 +44,9 @@ export function obtenerCompetencias(){
 
     );
 
-
 }
 
-
-
-
-
-
-
 export function obtenerCompetenciaPorId(id){
-
 
     return db.getFirstSync(
 
@@ -96,18 +68,9 @@ export function obtenerCompetenciaPorId(id){
 
     );
 
-
 }
 
-
-
-
-
-
-
-
 export function convocarAtleta(competenciaId, atletaId){
-
 
     db.runSync(
 
@@ -137,17 +100,9 @@ export function convocarAtleta(competenciaId, atletaId){
 
     );
 
-
 }
 
-
-
-
-
-
-
 export function obtenerConvocados(competenciaId){
-
 
     return db.getAllSync(
 
@@ -173,18 +128,9 @@ export function obtenerConvocados(competenciaId){
 
     );
 
-
 }
 
-
-
-
-
-
-
-
 export function registrarResultado(resultado){
-
 
     const marcaPersonal = esMarcaPersonal(
 
@@ -195,7 +141,6 @@ export function registrarResultado(resultado){
         Number(resultado.marca)
 
     ) ? 1 : 0;
-
 
     db.runSync(
 
@@ -221,7 +166,6 @@ export function registrarResultado(resultado){
 
         `,
 
-
         [
 
             resultado.competenciaId,
@@ -237,13 +181,6 @@ export function registrarResultado(resultado){
         ]
 
     );
-
-
-
-
-
-
-
 
     db.runSync(
 
@@ -271,7 +208,6 @@ export function registrarResultado(resultado){
 
         `,
 
-
         [
 
             resultado.atletaId,
@@ -290,81 +226,42 @@ export function registrarResultado(resultado){
 
     );
 
-
-
 }
-
-
-
-
-
-
-
-
 
 export function obtenerResultados(competenciaId){
 
-
-
     return db.getAllSync(
-
 
         `
 
         SELECT
 
-
         atletas.nombre,
-
 
         atletas.apellido,
 
-
         resultadosCompetencia.posicion,
-
 
         resultadosCompetencia.marca
 
-
-
         FROM resultadosCompetencia
-
-
 
         INNER JOIN atletas
 
-
-
         ON atletas.id = resultadosCompetencia.atletaId
-
-
-
 
         WHERE resultadosCompetencia.competenciaId = ?
 
-
-
-
         ORDER BY resultadosCompetencia.posicion ASC
-
-
 
         `,
 
-
-
         [
-
 
             competenciaId
 
-
         ]
 
-
-
     );
-
-
 
 }

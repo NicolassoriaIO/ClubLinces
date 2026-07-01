@@ -2,7 +2,6 @@ import {
     useState
 } from 'react';
 
-
 import {
     View,
     Text,
@@ -12,9 +11,7 @@ import {
     Platform
 } from 'react-native';
 
-
 import DateTimePicker from '@react-native-community/datetimepicker';
-
 
 import {
     crearCompetencia
@@ -25,11 +22,7 @@ import {
     parsearFecha
 } from '../utils/fechas';
 
-
-
 export default function CrearCompetenciaScreen({ navigation }) {
-
-
 
     const [nombre,setNombre] = useState("");
 
@@ -40,8 +33,6 @@ export default function CrearCompetenciaScreen({ navigation }) {
     const [lugar,setLugar] = useState("");
 
     const [disciplinas,setDisciplinas] = useState("");
-
-
 
     function onCambiarFecha(event, fechaSeleccionada) {
 
@@ -57,12 +48,7 @@ export default function CrearCompetenciaScreen({ navigation }) {
 
     }
 
-
-
-
     function guardar(){
-
-
 
         if(
 
@@ -74,25 +60,17 @@ export default function CrearCompetenciaScreen({ navigation }) {
 
         ){
 
-
             Alert.alert(
 
                 "Completa los campos"
 
             );
 
-
             return;
-
 
         }
 
-
-
-
-
         crearCompetencia({
-
 
             nombre,
 
@@ -102,12 +80,7 @@ export default function CrearCompetenciaScreen({ navigation }) {
 
             disciplinas
 
-
         });
-
-
-
-
 
         Alert.alert(
 
@@ -115,62 +88,36 @@ export default function CrearCompetenciaScreen({ navigation }) {
 
         );
 
-
-
         navigation.goBack();
-
-
 
     }
 
-
-
-
     return(
-
-
 
         <View
 
-
             style={{
-
 
                 flex:1,
                 padding:20
 
-
             }}
-
-
 
         >
 
-
-
             <Text>
-
 
                 Nueva competencia
 
-
             </Text>
-
-
-
-
 
             <TextInput
 
-
                 placeholder="Nombre"
-
 
                 value={nombre}
 
-
                 onChangeText={setNombre}
-
 
                 style={{
 
@@ -180,12 +127,7 @@ export default function CrearCompetenciaScreen({ navigation }) {
 
                 }}
 
-
             />
-
-
-
-
 
             <Text style={{ marginTop: 10 }}>
                 Fecha
@@ -223,21 +165,14 @@ export default function CrearCompetenciaScreen({ navigation }) {
                 />
             }
 
-
-
-
             <TextInput
-
 
                 placeholder="Lugar"
 
-
                 value={lugar}
-
 
                 onChangeText={setLugar}
 
-
                 style={{
 
                     borderWidth:1,
@@ -246,25 +181,15 @@ export default function CrearCompetenciaScreen({ navigation }) {
 
                 }}
 
-
             />
-
-
-
-
-
 
             <TextInput
 
-
                 placeholder="Disciplinas"
-
 
                 value={disciplinas}
 
-
                 onChangeText={setDisciplinas}
-
 
                 style={{
 
@@ -274,31 +199,18 @@ export default function CrearCompetenciaScreen({ navigation }) {
 
                 }}
 
-
             />
-
-
-
-
 
             <Button
 
-
                 title="Guardar competencia"
-
 
                 onPress={guardar}
 
-
             />
-
-
 
         </View>
 
-
-
     );
-
 
 }

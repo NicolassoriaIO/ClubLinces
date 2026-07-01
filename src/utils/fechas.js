@@ -1,19 +1,5 @@
-// src/utils/fechas.js
-//
-// Funciones puras para convertir entre el objeto Date (que entrega el
-// mini calendario / DateTimePicker) y el string "DD/MM/AAAA" que se
-// guarda y muestra en la app.
-//
-// Mantener esto en un solo lugar es justamente el principio de
-// Responsabilidad Única (SRP): las pantallas (CrearAtletaScreen,
-// CrearSesionScreen, CrearCompetenciaScreen, etc.) NO saben cómo se
-// formatea una fecha, solo llaman a estas funciones.
 
-/**
- * Convierte un objeto Date a "DD/MM/AAAA".
- * @param {Date} fecha
- * @returns {string}
- */
+
 export function formatearFecha(fecha) {
     if (!(fecha instanceof Date) || isNaN(fecha.getTime())) {
         return "";
@@ -26,13 +12,6 @@ export function formatearFecha(fecha) {
     return `${dia}/${mes}/${anio}`;
 }
 
-/**
- * Convierte "DD/MM/AAAA" a un objeto Date. Si el string no tiene ese
- * formato, intenta interpretarlo como ISO; si tampoco funciona, devuelve
- * la fecha actual (para no romper el DateTimePicker).
- * @param {string} texto
- * @returns {Date}
- */
 export function parsearFecha(texto) {
     if (!texto) {
         return new Date();
@@ -58,12 +37,6 @@ export function parsearFecha(texto) {
     return new Date();
 }
 
-/**
- * Convierte "DD/MM/AAAA" a "AAAA-MM-DD" (útil para ordenar/comparar
- * como string o guardar en SQLite de forma ordenable).
- * @param {string} texto
- * @returns {string}
- */
 export function aFormatoISO(texto) {
     const fecha = parsearFecha(texto);
     const anio = fecha.getFullYear();

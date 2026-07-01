@@ -49,10 +49,10 @@ export default function AgendaScreen({ navigation }) {
     const lunes   = getLunesDeSemana(fechaActual);
     const semana  = diasDeSemana(lunes);
 
-    // Sesiones del día seleccionado
+    
     const sesionesDia = todasSesiones.filter(s => s.fecha === toStr(diaSeleccionado));
 
-    // Puntos por día (tiene sesiones)
+    
     function tieneSesiones(fecha) {
         return todasSesiones.some(s => s.fecha === toStr(fecha));
     }
@@ -88,7 +88,7 @@ export default function AgendaScreen({ navigation }) {
                 </TouchableOpacity>
             </View>
 
-            {/* ── Selector de semana ── */}
+            
             <View style={s.selectorSemana}>
                 <TouchableOpacity onPress={semanaAnterior} style={s.btnFlecha}>
                     <Ionicons name="chevron-back" size={20} color="#fff" />
@@ -126,7 +126,7 @@ export default function AgendaScreen({ navigation }) {
           
             <View style={s.body}>
 
-                {/* Encabezado del día */}
+                
                 <View style={s.diaHeader}>
                     <Text style={s.diaHeaderTexto}>
                         {diaSeleccionado.toLocaleDateString('es-BO', { weekday: 'short', day: 'numeric', month: 'long' })}

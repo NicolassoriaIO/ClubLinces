@@ -1,11 +1,7 @@
-// src/constants/theme.js
-//
-// Paleta de colores extraída de los mockups (header granate/vino,
-// tarjetas blancas, acentos por color de disciplina/estado).
-// Centralizar el tema evita "colores mágicos" repetidos en cada pantalla.
+
 
 export const COLORS = {
-    primario: "#7A1F3B",       // Granate / vino - header, botones principales
+    primario: "#7A1F3B",       
     primarioOscuro: "#5C1730",
     primarioClaro: "#9C3A57",
 

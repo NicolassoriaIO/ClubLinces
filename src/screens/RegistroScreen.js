@@ -2,7 +2,6 @@ import {
     useState
 } from 'react';
 
-
 import {
     View,
     Text,
@@ -32,10 +31,7 @@ import {
 
 import { COLORS } from '../constants/theme';
 
-
-
 export default function RegistroScreen({navigation}){
-
 
     const [nombre,setNombre] = useState("");
 
@@ -43,14 +39,13 @@ export default function RegistroScreen({navigation}){
 
     const [password,setPassword] = useState("");
 
-    // Preguntas de seguridad (estilo Windows): se eligen de un combobox
-    // cerrado para evitar preguntas ambiguas, y se escribe la respuesta.
+    
+    
     const [pregunta1, setPregunta1] = useState("");
     const [respuesta1, setRespuesta1] = useState("");
 
     const [pregunta2, setPregunta2] = useState("");
     const [respuesta2, setRespuesta2] = useState("");
-
 
     function registrar(){
 
@@ -152,7 +147,6 @@ export default function RegistroScreen({navigation}){
         }
 
     }
-
 
     return(
 
@@ -261,7 +255,6 @@ export default function RegistroScreen({navigation}){
         </ScrollView>
 
     );
-
 
 }
 

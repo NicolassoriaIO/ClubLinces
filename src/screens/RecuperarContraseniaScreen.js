@@ -23,11 +23,6 @@ import {
 
 import { COLORS } from '../constants/theme';
 
-// Flujo de 3 pasos, igual al "restablecer contraseña con preguntas de
-// seguridad" de Windows:
-//   1) El usuario escribe su correo -> el sistema muestra SUS preguntas.
-//   2) El usuario responde ambas preguntas -> se verifican.
-//   3) Si son correctas, puede definir una nueva contraseña.
 const PASOS = {
     CORREO: 1,
     PREGUNTAS: 2,

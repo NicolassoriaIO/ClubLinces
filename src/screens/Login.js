@@ -16,12 +16,10 @@ import {
 
 import { useFocusEffect } from '@react-navigation/native';
 
-
 import {
     loginUsuario,
     existeUsuarioRegistrado
 } from '../services/usuarioService';
-
 
 import {
     guardarSesion
@@ -29,8 +27,6 @@ import {
 
 import { SessionContext } from '../context/SessionContext';
 import { COLORS } from '../constants/theme';
-
-
 
 export default function Login({navigation}){
 
@@ -41,8 +37,6 @@ export default function Login({navigation}){
     const [password,setPassword] = useState("");
 
     const [mostrarRegistro, setMostrarRegistro] = useState(true);
-
-
 
     useFocusEffect(
 
@@ -56,59 +50,29 @@ export default function Login({navigation}){
 
     );
 
-
-
     async function iniciarSesion(){
+        try {
+            const resultado = loginUsuario(correo, password);
 
-
-        const resultado = loginUsuario(
-
-            correo,
-
-            password
-
-        );
-
-
-
-        if(resultado.correcto){
-
-
-
-            await guardarSesion(
-
-                resultado.usuario
-
-            );
-
-
-
-            iniciarSesionApp(
-
-                resultado.usuario
-
-            );
-
-
+            if(resultado.correcto){
+                try {
+                    await guardarSesion(resultado.usuario);
+                    iniciarSesionApp(resultado.usuario);
+                } catch (storageError) {
+                    Alert.alert(
+                        "Error",
+                        "No se pudo guardar la sesión. Intenta nuevamente."
+                    );
+                }
+            }
+            else{
+                Alert.alert("Error", resultado.mensaje);
+            }
+        } catch (error) {
+            console.error('Error en inicio de sesión:', error);
+            Alert.alert("Error", "Ocurrió un error. Intenta nuevamente.");
         }
-        else{
-
-
-            Alert.alert(
-
-                "Error",
-
-                resultado.mensaje
-
-            );
-
-
-        }
-
-
     }
-
-
 
     return(
 
@@ -165,7 +129,6 @@ export default function Login({navigation}){
         </View>
 
     );
-
 
 }
 

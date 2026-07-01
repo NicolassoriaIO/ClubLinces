@@ -1,41 +1,36 @@
 import { db } from '../database/database';
 
-
-
 export function registrarAsistencia(asistencia) {
-
-    db.runSync(
-
-        `
-        INSERT INTO asistencias
-        (
-            sesionId,
-            atletaId,
-            estado,
-            fechaRegistro
-        )
-
-        VALUES
-        (
-            ?,
-            ?,
-            ?,
-            ?
-        )
-        `,
-
-        [
-            asistencia.sesionId,
-            asistencia.atletaId,
-            asistencia.estado,
-            asistencia.fechaRegistro
-        ]
-
-    );
-
+    try {
+        db.runSync(
+            `
+            INSERT INTO asistencias
+            (
+                sesionId,
+                atletaId,
+                estado,
+                fechaRegistro
+            )
+            VALUES
+            (
+                ?,
+                ?,
+                ?,
+                ?
+            )
+            `,
+            [
+                asistencia.sesionId,
+                asistencia.atletaId,
+                asistencia.estado,
+                asistencia.fechaRegistro
+            ]
+        );
+    } catch (error) {
+        console.error('Error registrando asistencia:', error);
+        throw new Error('No se pudo registrar la asistencia.');
+    }
 }
-
-
 
 export function obtenerAsistenciasPorSesion(sesionId) {
 
@@ -77,13 +72,9 @@ export function existeAsistenciaSesion(sesionId){
 
     );
 
-
-
     return resultado !== null;
 
 }
-
-
 
 export function estaBloqueadaPorTiempo(sesion){
 

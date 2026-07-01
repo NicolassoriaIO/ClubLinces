@@ -28,16 +28,12 @@ function obtenerUnidad(disciplina) {
     return UNIDADES[disciplina] || "";
 }
 
-
-
 export default function RegistrarRendimientoScreen({ route, navigation }) {
 
     const { atleta, sesion } = route.params;
 
     const [disciplina, setDisciplina] = useState("");
     const [resultado, setResultado] = useState("");
-
-
 
     function guardar() {
 
@@ -51,7 +47,7 @@ export default function RegistrarRendimientoScreen({ route, navigation }) {
 
         const valorNumerico = parseFloat(resultado);
 
-        // HU-07 crit. 3: no negativo
+        
         if (isNaN(valorNumerico) || valorNumerico < 0) {
             Alert.alert(
                 "Valor inválido",
@@ -78,8 +74,6 @@ export default function RegistrarRendimientoScreen({ route, navigation }) {
         Alert.alert("Éxito", "Marca registrada correctamente.");
         navigation.goBack();
     }
-
-
 
     return (
 
@@ -122,8 +116,6 @@ export default function RegistrarRendimientoScreen({ route, navigation }) {
         </View>
     );
 }
-
-
 
 const styles = StyleSheet.create({
 

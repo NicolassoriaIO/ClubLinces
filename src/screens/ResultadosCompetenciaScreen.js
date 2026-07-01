@@ -1,11 +1,3 @@
-// src/screens/ResultadosCompetenciaScreen.js
-//
-// HU-09 — Gestionar competencias
-// Crit. 3: registrar posición y marca por atleta → vincula al historial.
-//          (lo hace competenciaService.registrarResultado internamente)
-// Crit. 4: muestra resultados ya guardados en esta competencia.
-// Crit. 5: si el resultado supera récord personal → etiqueta "★ Nuevo Récord Personal".
-
 import {
     useState,
     useEffect
@@ -29,21 +21,14 @@ import {
 
 import { esMarcaPersonal } from '../services/rendimientoService';
 
-
-
-// ── Fila editable para ingresar posición y marca de un atleta ──────────────
 function FilaResultado({ item, onGuardar, yaGuardado }) {
 
     const [posicion, setPosicion] = useState("");
     const [marca, setMarca] = useState("");
 
-
-
     function handleGuardar() {
         onGuardar(item, posicion, marca);
     }
-
-
 
     if (yaGuardado) {
         return (
@@ -55,8 +40,6 @@ function FilaResultado({ item, onGuardar, yaGuardado }) {
             </View>
         );
     }
-
-
 
     return (
 
@@ -88,26 +71,19 @@ function FilaResultado({ item, onGuardar, yaGuardado }) {
     );
 }
 
-
-
-// ── Pantalla principal ──────────────────────────────────────────────────────
 export default function ResultadosCompetenciaScreen({ route }) {
 
     const { competencia } = route.params;
 
     const [atletas, setAtletas] = useState([]);
     const [idsGuardados, setIdsGuardados] = useState(new Set());
-    // HU-09 crit. 5: mensajes de nuevo récord para mostrar en tabla
+    
     const [nuevosRecords, setNuevosRecords] = useState({});
     const [resultados, setResultados] = useState([]);
-
-
 
     useEffect(() => {
         cargar();
     }, []);
-
-
 
     function cargar() {
 
@@ -116,12 +92,10 @@ export default function ResultadosCompetenciaScreen({ route }) {
         const res = obtenerResultados(competencia.id);
         setResultados(res);
 
-        // Marcar como ya guardados los atletas que ya tienen resultado
+        
         const ids = new Set(res.map((r) => r.atletaId));
         setIdsGuardados(ids);
     }
-
-
 
     function guardar(item, posicion, marca) {
 
@@ -149,7 +123,7 @@ export default function ResultadosCompetenciaScreen({ route }) {
             return;
         }
 
-        // HU-09 crit. 5: verificar si supera récord ANTES de guardar
+        
         const esRecord = esMarcaPersonal(item.id, "Competencia", marcaNumerica);
 
         registrarResultado({
@@ -160,7 +134,7 @@ export default function ResultadosCompetenciaScreen({ route }) {
             fecha: new Date().toISOString()
         });
 
-        // HU-09 crit. 5: registrar en estado si es nuevo récord
+        
         if (esRecord) {
             setNuevosRecords((prev) => ({
                 ...prev,
@@ -176,11 +150,9 @@ export default function ResultadosCompetenciaScreen({ route }) {
 
         Alert.alert("Éxito", mensaje);
 
-        // Recargar tabla de resultados
+        
         setResultados(obtenerResultados(competencia.id));
     }
-
-
 
     return (
 
@@ -190,7 +162,7 @@ export default function ResultadosCompetenciaScreen({ route }) {
                 Resultados: {competencia.nombre}
             </Text>
 
-            {/* ── Tabla de resultados ya guardados ── */}
+            
             {resultados.length > 0 && (
                 <View style={styles.seccionResultados}>
                     <Text style={styles.subtitulo}>Resultados registrados</Text>
@@ -198,7 +170,7 @@ export default function ResultadosCompetenciaScreen({ route }) {
                         <View key={idx} style={styles.filaResultado}>
                             <Text style={styles.textoResultado}>
                                 {r.posicion}° — {r.nombre} {r.apellido} — {r.marca}
-                                {/* HU-09 crit. 5: etiqueta de récord */}
+                                
                                 {nuevosRecords[r.atletaId]
                                     ? "  ★ Nuevo Récord Personal"
                                     : ""}
@@ -208,7 +180,7 @@ export default function ResultadosCompetenciaScreen({ route }) {
                 </View>
             )}
 
-            {/* ── Formulario de ingreso por atleta convocado ── */}
+            
             <Text style={styles.subtitulo}>Ingresar resultados</Text>
 
             <FlatList
@@ -232,8 +204,6 @@ export default function ResultadosCompetenciaScreen({ route }) {
         </View>
     );
 }
-
-
 
 const styles = StyleSheet.create({
 

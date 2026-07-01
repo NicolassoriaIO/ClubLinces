@@ -22,8 +22,6 @@ import { GRUPOS, DISCIPLINAS } from '../constants/opciones';
 
 import { formatearFecha, parsearFecha } from '../utils/fechas';
 
-
-
 export default function EditarAtletaScreen({ route, navigation }) {
 
     const { atleta } = route.params;
@@ -35,8 +33,6 @@ export default function EditarAtletaScreen({ route, navigation }) {
     const [disciplina, setDisciplina] = useState(atleta.disciplina);
     const [grupo, setGrupo] = useState(atleta.grupo);
 
-
-
     function onCambiarFecha(event, fechaSeleccionada) {
 
         setMostrarCalendario(Platform.OS === "ios");
@@ -45,8 +41,6 @@ export default function EditarAtletaScreen({ route, navigation }) {
             setFechaNacimiento(formatearFecha(fechaSeleccionada));
         }
     }
-
-
 
     function actualizar() {
 
@@ -89,8 +83,6 @@ export default function EditarAtletaScreen({ route, navigation }) {
         confirmarActualizacion();
     }
 
-
-
     function confirmarActualizacion() {
 
         actualizarAtleta(
@@ -105,8 +97,6 @@ export default function EditarAtletaScreen({ route, navigation }) {
         Alert.alert("Éxito", "Perfil actualizado correctamente.");
         navigation.goBack();
     }
-
-
 
     return (
 

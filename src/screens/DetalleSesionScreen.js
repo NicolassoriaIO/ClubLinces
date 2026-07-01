@@ -2,7 +2,6 @@ import {
     useState
 } from 'react';
 
-
 import {
     View,
     Text,
@@ -11,26 +10,17 @@ import {
     Alert
 } from 'react-native';
 
-
 import {
     cancelarSesion
 } from '../services/agendaService';
 
-
-
 export default function DetalleSesionScreen({ route, navigation }) {
-
 
     const { sesion } = route.params;
 
-
     const [motivo, setMotivo] = useState("");
 
-
-
-
     function cancelar() {
-
 
         if(motivo === ""){
 
@@ -43,8 +33,6 @@ export default function DetalleSesionScreen({ route, navigation }) {
 
         }
 
-
-
         cancelarSesion(
 
             sesion.id,
@@ -52,8 +40,6 @@ export default function DetalleSesionScreen({ route, navigation }) {
             motivo
 
         );
-
-
 
         Alert.alert(
 
@@ -63,16 +49,9 @@ export default function DetalleSesionScreen({ route, navigation }) {
 
         );
 
-
-
         navigation.goBack();
 
-
     }
-
-
-
-
 
     return (
 
@@ -85,55 +64,35 @@ export default function DetalleSesionScreen({ route, navigation }) {
 
         >
 
-
             <Text>
-
 
                 Fecha: {sesion.fecha}
 
-
                 {"\n"}
-
 
                 Hora: {sesion.horaInicio} - {sesion.horaFin}
 
-
                 {"\n"}
-
 
                 Lugar: {sesion.lugar}
 
-
                 {"\n"}
-
 
                 Grupo: {sesion.grupo}
 
-
                 {"\n"}
-
 
                 Descripción: {sesion.descripcion}
 
-
                 {"\n"}
-
 
                 Estado: {sesion.estado}
 
-
-
             </Text>
-
-
-
-
 
             <Button
 
-
                 title="Editar sesión"
-
 
                 onPress={()=>
 
@@ -151,19 +110,11 @@ export default function DetalleSesionScreen({ route, navigation }) {
 
                 }
 
-
             />
-
-
-
-
-
 
             <Button
 
-
                 title="Registrar asistencia"
-
 
                 onPress={()=>
 
@@ -180,7 +131,6 @@ export default function DetalleSesionScreen({ route, navigation }) {
                     )
 
                 }
-
 
             />
             
@@ -206,48 +156,25 @@ export default function DetalleSesionScreen({ route, navigation }) {
 
             />
 
-
-
-
-
-
-
             <TextInput
-
 
                 placeholder="Motivo de cancelación"
 
-
                 value={motivo}
-
 
                 onChangeText={setMotivo}
 
-
             />
-
-
-
-
-
-
 
             <Button
 
-
                 title="Cancelar sesión"
-
 
                 onPress={cancelar}
 
-
             />
 
-
-
-
         </View>
-
 
     );
 

@@ -26,8 +26,6 @@ import {
     parsearFecha
 } from '../utils/fechas';
 
-
-
 export default function EditarSesionScreen({
     route,
     navigation
@@ -49,7 +47,6 @@ export default function EditarSesionScreen({
 
     const [descripcion, setDescripcion] = useState(sesion.descripcion);
 
-
     function onCambiarFecha(event, fechaSeleccionada) {
 
         setMostrarCalendario(Platform.OS === "ios");
@@ -63,8 +60,6 @@ export default function EditarSesionScreen({
         }
 
     }
-
-
 
     function guardar() {
 
@@ -85,7 +80,6 @@ export default function EditarSesionScreen({
             return;
 
         }
-
 
         actualizarSesion(
 
@@ -111,8 +105,6 @@ export default function EditarSesionScreen({
 
     }
 
-
-
     return (
 
         <View
@@ -125,7 +117,6 @@ export default function EditarSesionScreen({
             <Text>
                 Editar sesión
             </Text>
-
 
             <Text style={{ marginTop: 10 }}>
                 Fecha
@@ -163,7 +154,6 @@ export default function EditarSesionScreen({
                 />
             }
 
-
             <TextInput
                 placeholder="Hora inicio"
                 value={horaInicio}
@@ -171,20 +161,17 @@ export default function EditarSesionScreen({
                 style={{ marginTop: 10 }}
             />
 
-
             <TextInput
                 placeholder="Hora fin"
                 value={horaFin}
                 onChangeText={setHoraFin}
             />
 
-
             <TextInput
                 placeholder="Lugar"
                 value={lugar}
                 onChangeText={setLugar}
             />
-
 
             <Text style={{ marginTop: 10 }}>
                 Grupo
@@ -210,13 +197,11 @@ export default function EditarSesionScreen({
 
             </Picker>
 
-
             <TextInput
                 placeholder="Descripción"
                 value={descripcion}
                 onChangeText={setDescripcion}
             />
-
 
             <Button
 

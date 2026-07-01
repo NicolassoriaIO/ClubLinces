@@ -3,7 +3,6 @@ import {
     useEffect
 } from 'react';
 
-
 import {
     View,
     Text,
@@ -12,12 +11,9 @@ import {
     Alert
 } from 'react-native';
 
-
 import {
     obtenerAtletasPorGrupo
 } from '../services/atletaService';
-
-
 
 import {
     registrarAsistencia,
@@ -25,20 +21,11 @@ import {
     estaBloqueadaPorTiempo
 } from '../services/asistenciaService';
 
-
-
-
 export default function AsistenciaScreen({ route }) {
-
-
 
     const { sesion } = route.params;
 
-
-
     const [atletas,setAtletas] = useState([]);
-
-
 
     const [asistencias,setAsistencias] = useState({});
 
@@ -46,22 +33,11 @@ export default function AsistenciaScreen({ route }) {
 
     const [bloqueadoPorTiempo, setBloqueadoPorTiempo] = useState(false);
 
-
-
-
-
     useEffect(()=>{
-
 
         cargarAtletas();
 
-
     },[]);
-
-
-
-
-
 
     function cargarAtletas(){
 
@@ -70,8 +46,6 @@ export default function AsistenciaScreen({ route }) {
             obtenerAtletasPorGrupo(sesion.grupo)
 
         );
-
-
 
         const yaGuardada = existeAsistenciaSesion(
             sesion.id
@@ -96,11 +70,6 @@ export default function AsistenciaScreen({ route }) {
 
     }
 
-
-
-
-
-
     function marcar(id, estado){
 
         if(soloLectura){
@@ -118,19 +87,11 @@ export default function AsistenciaScreen({ route }) {
 
     }
 
-
-
-
     function guardar(){
-
-
 
         atletas.forEach((atleta)=>{
 
-
-
             if(asistencias[atleta.id]){
-
 
                 registrarAsistencia({
 
@@ -144,11 +105,7 @@ export default function AsistenciaScreen({ route }) {
 
                 });
 
-
-
             }
-
-
 
         });
 
@@ -158,16 +115,11 @@ export default function AsistenciaScreen({ route }) {
 
     function calcularPorcentaje(){
 
-
     let total = atletas.length;
-
 
     let presentes = 0;
 
-
-
     atletas.forEach((atleta)=>{
-
 
         if(
             asistencias[atleta.id] === "P"
@@ -177,11 +129,7 @@ export default function AsistenciaScreen({ route }) {
 
         }
 
-
     });
-
-
-
 
     if(total === 0){
 
@@ -189,27 +137,15 @@ export default function AsistenciaScreen({ route }) {
 
     }
 
-
-
-
     return Math.round(
 
         (presentes / total) * 100
 
     );
 
-
 }
 
-
-
-
-
-
-
     return(
-
-
 
         <View
 
@@ -223,43 +159,25 @@ export default function AsistenciaScreen({ route }) {
 
         >
 
-
-
             <Text>
-
 
                 Registrar asistencia
 
-
                 {"\n"}
-
 
                 Grupo: {sesion.grupo}
 
-
             </Text>
-
-
-
-
 
             <FlatList
 
-
-
                 data={atletas}
-
-
 
                 keyExtractor={(item)=>
 
                     item.id.toString()
 
                 }
-
-
-
-
 
                 renderItem={({item})=>(
 
@@ -370,7 +288,6 @@ export default function AsistenciaScreen({ route }) {
 
                 )}
 
-
             />
 
                 <Text>
@@ -402,10 +319,7 @@ export default function AsistenciaScreen({ route }) {
                     />
                 }
 
-
-
         </View>
-
 
     );
 

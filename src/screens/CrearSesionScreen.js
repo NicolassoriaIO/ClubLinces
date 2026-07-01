@@ -1,8 +1,3 @@
-// src/screens/CrearSesionScreen.js
-//
-// HU-04 — Crear sesión de entrenamiento
-// Crit. 3: fecha en pasado → bloquea con mensaje.
-
 import { useState } from 'react';
 
 import {
@@ -24,8 +19,6 @@ import { GRUPOS } from '../constants/opciones';
 
 import { formatearFecha, parsearFecha } from '../utils/fechas';
 
-
-
 export default function CrearSesionScreen({ navigation }) {
 
     const [fecha, setFecha] = useState("");
@@ -36,8 +29,6 @@ export default function CrearSesionScreen({ navigation }) {
     const [grupo, setGrupo] = useState("");
     const [descripcion, setDescripcion] = useState("");
 
-
-
     function onCambiarFecha(event, fechaSeleccionada) {
 
         setMostrarCalendario(Platform.OS === "ios");
@@ -47,22 +38,18 @@ export default function CrearSesionScreen({ navigation }) {
         }
     }
 
-
-
-    // HU-04 crit. 3: compara la fecha seleccionada con hoy (sin hora).
+    
     function esFechaEnPasado(fechaStr) {
 
         const seleccionada = parsearFecha(fechaStr);
         const hoy = new Date();
 
-        // Normalizar a medianoche para comparar solo fechas
+        
         hoy.setHours(0, 0, 0, 0);
         seleccionada.setHours(0, 0, 0, 0);
 
         return seleccionada < hoy;
     }
-
-
 
     function guardar() {
 
@@ -81,7 +68,7 @@ export default function CrearSesionScreen({ navigation }) {
             return;
         }
 
-        // HU-04 crit. 3
+        
         if (esFechaEnPasado(fecha)) {
             Alert.alert(
                 "Fecha inválida",
@@ -103,8 +90,6 @@ export default function CrearSesionScreen({ navigation }) {
         navigation.goBack();
     }
 
-
-
     return (
 
         <View style={{ flex: 1, padding: 20 }}>
@@ -124,7 +109,7 @@ export default function CrearSesionScreen({ navigation }) {
                     value={fecha === "" ? new Date() : parsearFecha(fecha)}
                     mode="date"
                     display="default"
-                    minimumDate={new Date()}   // bloquea pasado en el picker también
+                    minimumDate={new Date()}   
                     onChange={onCambiarFecha}
                 />
             }

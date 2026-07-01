@@ -6,7 +6,6 @@ import { obtenerAtletas } from '../services/atletaService';
 
 const GRANATE = '#7A1F3B';
 
-
 const AVATAR_COLORES = ['#e8d5d5','#d5e8d5','#d5d5e8','#e8e4d5','#e8d5e4','#d5e8e8'];
 
 function colorAvatar(nombre) {
@@ -18,7 +17,6 @@ function colorAvatar(nombre) {
 function iniciales(nombre, apellido) {
     return `${nombre?.[0] ?? ''}${apellido?.[0] ?? ''}`.toUpperCase();
 }
-
 
 import { GRUPOS } from '../constants/opciones';
 
@@ -51,7 +49,7 @@ export default function AtletasScreen({ navigation }) {
         <View style={s.root}>
             <StatusBar barStyle="light-content" backgroundColor={GRANATE} />
 
-            {/* ── Header ── */}
+            
             <View style={s.header}>
                 <View>
                     <Text style={s.titulo}>Atletas</Text>
@@ -65,7 +63,7 @@ export default function AtletasScreen({ navigation }) {
                 </TouchableOpacity>
             </View>
 
-            {/* ── Buscador ── */}
+            
             <View style={s.buscadorWrap}>
                 <Ionicons name="search-outline" size={16} color="#aaa" style={{ marginRight: 8 }} />
                 <TextInput
@@ -77,7 +75,7 @@ export default function AtletasScreen({ navigation }) {
                 />
             </View>
 
-            {/* ── Filtros horizontales ── */}
+            
             <FlatList
                 horizontal
                 data={['Todos', ...GRUPOS]}
@@ -96,7 +94,7 @@ export default function AtletasScreen({ navigation }) {
                 )}
             />
 
-            {/* ── Lista ── */}
+            
             <FlatList
                 data={lista}
                 keyExtractor={(item) => item.id.toString()}
@@ -106,12 +104,12 @@ export default function AtletasScreen({ navigation }) {
                         style={s.card}
                         onPress={() => navigation.navigate('DetalleAtleta', { atleta: item })}
                     >
-                        {/* Avatar */}
+                        
                         <View style={[s.avatar, { backgroundColor: colorAvatar(item.nombre) }]}>
                             <Text style={s.avatarTexto}>{iniciales(item.nombre, item.apellido)}</Text>
                         </View>
 
-                        {/* Info */}
+                        
                         <View style={{ flex: 1 }}>
                             <Text style={s.nombre}>{item.nombre} {item.apellido}</Text>
                             <View style={s.tagsRow}>
@@ -130,7 +128,7 @@ export default function AtletasScreen({ navigation }) {
                 }
             />
 
-            {/* ── FAB crear ── */}
+            
             <TouchableOpacity
                 style={s.fab}
                 onPress={() => navigation.navigate('CrearAtleta')}

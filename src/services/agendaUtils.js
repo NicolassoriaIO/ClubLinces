@@ -16,8 +16,6 @@ export function obtenerInicioSemana(fecha) {
 
 }
 
-
-
 export function obtenerFinSemana(fecha) {
 
     const fin = obtenerInicioSemana(fecha);
@@ -29,8 +27,6 @@ export function obtenerFinSemana(fecha) {
     return fin;
 
 }
-
-
 
 export function filtrarSesionesSemana(
     sesiones,
@@ -57,8 +53,6 @@ export function obtenerRangoSemana(fecha) {
     const inicio = obtenerInicioSemana(fecha);
 
     const fin = obtenerFinSemana(fecha);
-
-
 
     return (
 

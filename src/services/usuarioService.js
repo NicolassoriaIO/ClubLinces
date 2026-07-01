@@ -1,19 +1,3 @@
-// src/services/usuarioService.js
-//
-// Capa de SERVICIO (reglas de negocio): login, bloqueo por intentos,
-// registro y recuperación de contraseña con preguntas de seguridad.
-//
-// DIP (Inversión de Dependencias): este archivo ya NO importa `db` de
-// SQLite directamente. Depende de `usuarioRepository`, que es la
-// ABSTRACCIÓN/contrato de acceso a datos. Además, el repositorio se recibe
-// como parámetro con un valor por defecto, así en pruebas unitarias se
-// podría inyectar un repositorio falso (mock) sin tocar SQLite real.
-//
-// SRP (Responsabilidad Única): cada función hace una sola cosa
-// (registrar, buscar, verificar preguntas, resetear password, hacer
-// login). La función `loginUsuario` orquesta el flujo, pero delega el
-// detalle de "cómo se guarda" al repositorio.
-
 import { usuarioRepository as repositorioPorDefecto } from '../repositories/usuarioRepository';
 
 const MAX_INTENTOS = 5;
@@ -107,14 +91,6 @@ export function loginUsuario(correo, password, repositorio = repositorioPorDefec
     };
 }
 
-// ----------------------------------------------------------------------
-// Recuperación de contraseña con preguntas de seguridad (estilo Windows)
-// ----------------------------------------------------------------------
-
-/**
- * Devuelve las preguntas de seguridad guardadas para un correo, sin
- * exponer las respuestas (solo se usan para mostrarlas en pantalla).
- */
 export function obtenerPreguntasSeguridad(correo, repositorio = repositorioPorDefecto) {
 
     const usuario = repositorio.buscarPorCorreo(correo);
@@ -133,11 +109,6 @@ export function obtenerPreguntasSeguridad(correo, repositorio = repositorioPorDe
     };
 }
 
-/**
- * Verifica que AMBAS respuestas coincidan con las guardadas (comparación
- * insensible a mayúsculas/espacios, igual que el "recordatorio" de
- * Windows).
- */
 export function verificarPreguntasSeguridad(
     correo,
     respuesta1,
@@ -169,10 +140,6 @@ export function verificarPreguntasSeguridad(
     };
 }
 
-/**
- * Cambia la contraseña tras verificar las preguntas de seguridad, y
- * además desbloquea la cuenta y resetea los intentos fallidos.
- */
 export function resetearPassword(usuarioId, nuevaPassword, repositorio = repositorioPorDefecto) {
     repositorio.actualizarPassword(usuarioId, nuevaPassword);
 }

@@ -70,7 +70,7 @@ export default function CompetenciasScreen({ navigation }) {
         <View style={s.root}>
             <StatusBar barStyle="light-content" backgroundColor={GRANATE} />
 
-            {/* ── Header ── */}
+            
             <View style={s.header}>
                 <View>
                     <Text style={s.titulo}>Competencias</Text>
@@ -92,7 +92,7 @@ export default function CompetenciasScreen({ navigation }) {
                 ListHeaderComponent={
                     <View style={{ paddingBottom: 30 }}>
 
-                        {/* ── Pendientes ── */}
+                        
                         {pendientes.length > 0 && (
                             <View>
                                 <View style={s.seccionHeader}>
@@ -106,7 +106,7 @@ export default function CompetenciasScreen({ navigation }) {
                             </View>
                         )}
 
-                        {/* ── Finalizadas ── */}
+                        
                         {finalizadas.length > 0 && (
                             <View>
                                 <View style={s.seccionHeader}>
